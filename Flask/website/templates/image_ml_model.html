@@ -1,0 +1,568 @@
+{% extends "base.html" %} {% block title %}Image Model{% endblock %}
+{% block content%}
+<head>
+   <link id="theme-style" rel="stylesheet"  href="{{ url_for('static', filename='/stylesheets/image_ml_model_theme.css') }}" />
+   <script src='http://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.js'></script>
+   <script 
+      src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"
+      integrity="sha512-q/dWJ3kcmjBLU4Qc47E4A9kTB4m3wuTY7vkFJDTZKjTs8jhyGQnaUrxa0Ytd0ssMZhbNua9hE+E7Qv1j+DyZwA=="
+      crossorigin="anonymous"></script>
+</head>
+<body>
+   {% if user.is_authenticated  %}
+
+   <section class="container image-gallery mt-5">
+
+      <div class="row">
+
+         <div class="col-md-6 image_box">
+
+            <h3 class="mb-2">SERP Simulation</h3>
+            
+               <div class="rounded container serp_simulator mb-5 ">
+
+                  <div class="row">
+                     <div class="col-md-12">
+                        <center>
+                           <div class="bar row mt-4">
+
+                              <div class="col text-right pt-1">
+                                 <img class="voice" src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e8/Google_mic.svg/716px-Google_mic.svg.png" title="Search by Voice">
+                                 <img class="camera" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPCEtLSBHZW5lcmF0b3I6IEFkb2JlIElsbHVzdHJhdG9yIDI0LjAuMCwgU1ZHIEV4cG9ydCBQbHVnLUluIC4gU1ZHIFZlcnNpb246IDYuMDAgQnVpbGQgMCkgIC0tPgo8c3ZnIHZlcnNpb249IjEuMSIgaWQ9IlN0YW5kYXJkX3Byb2R1Y3RfaWNvbiIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIKCSB4PSIwcHgiIHk9IjBweCIgd2lkdGg9IjE5MnB4IiBoZWlnaHQ9IjE5MnB4IiB2aWV3Qm94PSIwIDAgMTkyIDE5MiIgZW5hYmxlLWJhY2tncm91bmQ9Im5ldyAwIDAgMTkyIDE5MiIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI+CjxyZWN0IGlkPSJib3VuZGluZ19ib3hfMV8iIGZpbGw9Im5vbmUiIHdpZHRoPSIxOTIiIGhlaWdodD0iMTkyIi8+CjxnIGlkPSJhcnRfbGF5ZXIiPgoJPGNpcmNsZSBpZD0iRG90IiBmaWxsPSIjNDI4NUY0IiBjeD0iOTYiIGN5PSIxMDQuMTUiIHI9IjI4Ii8+Cgk8cGF0aCBpZD0iUmVkIiBmaWxsPSIjRUE0MzM1IiBkPSJNMTYwLDcydjQwLjE1VjEzNmMwLDEuNjktMC4zNCwzLjI5LTAuODIsNC44MnYwdjBjLTEuNTcsNC45Mi01LjQzLDguNzgtMTAuMzUsMTAuMzVoMHYwCgkJYy0xLjUzLDAuNDktMy4xMywwLjgyLTQuODIsMC44Mkg2NmwxNiwxNmg1MGgxMmM0LjQyLDAsOC42My0wLjksMTIuNDYtMi41MWMzLjgzLTEuNjIsNy4yOC0zLjk2LDEwLjE3LTYuODYKCQljMS40NS0xLjQ1LDIuNzYtMy4wMywzLjkxLTQuNzRjMi4zLTMuNCwzLjk2LTcuMjgsNC44MS0xMS40NGMwLjQzLTIuMDgsMC42NS00LjI0LDAuNjUtNi40NXYtMTJWOTYuMTVWODRsLTYtMTlsLTEwLjgyLDIuMTgKCQlDMTU5LjY2LDY4LjcxLDE2MCw3MC4zMSwxNjAsNzJ6Ii8+Cgk8cGF0aCBpZD0iQmx1ZSIgZmlsbD0iIzQyODVGNCIgZD0iTTMyLDcyYzAtMS42OSwwLjM0LTMuMjksMC44Mi00LjgyYzEuNTctNC45Miw1LjQzLTguNzgsMTAuMzUtMTAuMzVDNDQuNzEsNTYuMzQsNDYuMzEsNTYsNDgsNTYKCQloOTZjMS42OSwwLDMuMjksMC4zNCw0LjgyLDAuODJjMCwwLDAsMCwwLDBMMTQ5LDQ1bC0xNy01bC0xNi0xNmgtMTMuNDRIOTZoLTYuNTZINzZMNjAsNDBINDhjLTE3LjY3LDAtMzIsMTQuMzMtMzIsMzJ2MTJ2MjBsMTYsMTYKCQlWNzJ6Ii8+Cgk8cGF0aCBpZD0iR3JlZW4iIGZpbGw9IiMzNEE4NTMiIGQ9Ik0xNDQsNDBoLTEybDE2LjgzLDE2LjgzYzEuMjMsMC4zOSwyLjM5LDAuOTMsMy40NywxLjU5YzIuMTYsMS4zMiwzLjk3LDMuMTMsNS4yOSw1LjI5CgkJYzAuNjYsMS4wOCwxLjIsMi4yNCwxLjU5LDMuNDd2MEwxNzYsODRWNzJDMTc2LDU0LjMzLDE2MS42Nyw0MCwxNDQsNDB6Ii8+Cgk8cGF0aCBpZD0iWWVsbG93IiBmaWxsPSIjRkJCQzA0IiBkPSJNNDgsMTY4aDM5Ljg5bC0xNi0xNkg0OGMtOC44MiwwLTE2LTcuMTgtMTYtMTZ2LTIzLjg5bC0xNi0xNlYxMzZDMTYsMTUzLjY3LDMwLjMzLDE2OCw0OCwxNjh6CgkJIi8+CjwvZz4KPC9zdmc+Cg==" title="Search by Lens">
+                              </div>
+                              
+                              </div>
+                        </center>
+                     </div>
+                  </div>
+                  <hr>
+                  <div class="under_box">
+                     <div class="row">
+                        <div class="col-md-12" id="bread_crumb">
+                           <a>{{user_company.company_url}}</a>› ... ›<a id="category_update_one">{{extracted_product.category}} &#129171;</a>
+                        </div>
+                     </div>
+                     <div class="row">
+                        <div class="col-md-12" id="serp_title">
+                           <h1><a id="title_update_one">{{extracted_product.title}}</a> - <a>{{user_company.company_name}}</a></h1>
+                        </div>
+                     </div>
+                     <div class="row">
+                        <div class="col-md-12" id="serp_text">
+                           {% if extracted_product.low_price != extracted_product.high_price %}
+                           <p id="low_price_update_one">Low Price: {{extracted_product.low_price}},</p>
+                           <p id="high_price_update_one">Highest Price: {{extracted_product.high_price}}</p>
+                           {% else %}
+                           <p id="high_price_update_one">Price: {{extracted_product.high_price}}</p>
+                           {% endif %}
+                           <p id="brand_update_one">Brand: {{extracted_product.brand}}</p>
+                           <p id="description_update_one">Description: {{extracted_product.description}}</p>
+                        </div>
+                     </div>
+
+                     <div class="row" id="under_line">
+                        <div class="col-md-12" id="stars">
+                           <span class="fa fa-star checked"></span>
+                           <span class="fa fa-star checked"></span>
+                           <span class="fa fa-star checked"></span>
+                           <span class="fa fa-star unchecked"></span>
+                           <span class="fa fa-star unchecked"></span>
+                           <span class="review_text">Bewertung: 4,7</span>
+                           <span class="point">&#8226;</span>
+                           <span class="result_number">156 Ergebnisse</span>
+                        </div>
+                     </div>
+
+                  </div>
+               </div>
+         
+
+            <div class="row image_and_text_box">
+
+               <div class="col-md-11 image_box mb-2">
+                  <h3>Product Image</h3>
+                  <img class="product_image" src="{{base64_image}}" alt="product image">
+               </div>
+
+               <div class="col-md-12 mb-3 pb-3">
+                  <div class="bg-secondary rounded p-2 text-box">
+                     <section class="text-in-image">
+                        <h3>Text from Image</h3>
+                        <p class="sentence" contentEditable="true">{{extracted_product.imagetext}}</p>
+                     </section>
+                  </div>
+               </div>
+
+            </div>
+         </div>
+
+
+         <div class="col-md-6">
+
+            <div class="bg-secondary rounded p-4 code_display">
+
+               <div class="row">
+
+                  <button type="submit" class="add-code-button" onclick="AddCode()">Add Code</button>
+                  <button type="submit" id="change_meta_tags_button" onclick="UpdateExtractedProduct()">Change</button>
+
+               </div>
+
+               <div class="tab row mt-5">
+                  <button class="tablinks json_ld_button" onclick="openTab(event, 'displayed_code_json_ld')" id="defaultOpen">JSON-LD</button>
+                  <button class="tablinks schema_button" onclick="openTab(event, 'displayed_code_rdf')">RDfs</button>
+                  <button class="tablinks schema_button" onclick="openTab(event, 'displayed_code_microdata')">Microdata</button>
+               </div>
+
+               <div class="col-md-6 form-popup" id="add_code">
+
+                  <h2>Add Code</h2>
+
+                  <div class="autocomplete" autocomplete="off">
+
+                     <div class="col-6">
+                        <input type="text" name="meta_key" id="meta_key" placeholder="Key" class="form-control mb-1" minlength="1">
+                        <input type="text" name="meta_value" id="meta_value" placeholder="Value" class="form-control mb-1" minlength="1">
+                        <button type="submit" onclick="close_add_code()" class="btn btn-primary">Close</button>
+                     </div>
+                     
+                  </div>
+
+               </div>
+<blockquote>
+   <pre class="tabcontent" id="displayed_code_json_ld">
+    <code class="language-json">
+{
+    "<span contentEditable="true">@context</span>": "<span contentEditable="true">https://www.schema.org</span>",
+    "<span contentEditable="true">@type</span>": "<span contentEditable="true">product</span>",
+    "<span contentEditable="true">brand</span>": "<span id="brand" contentEditable="true">{{extracted_product.brand}}</span>",
+    "<span contentEditable="true">logo</span>": "<span contentEditable="true">http://www.example.com/logo.png</span>",
+    "<span contentEditable="true">name</span>": "<span id="title" contentEditable="true">{{extracted_product.title}}</span>",
+    "<span contentEditable="true">category</span>": "<span id="category" contentEditable="true">{{extracted_product.category}}</span>",
+    "<span contentEditable="true">image</span>": "",<span></span>
+    "<span contentEditable="true">description</span>": "<span id="description" contentEditable="true">{{extracted_product.description}}</span>",
+    "<span contentEditable="true">offers</span>": { <span></span>
+      "<span contentEditable="true">@type</span>": "<span contentEditable="true">Offer</span>",
+      "<span contentEditable="true">priceCurrency</span>": "<span id="currency" contentEditable="true">{{extracted_product.currency}}</span>", 
+      "<span contentEditable="true">highPrice</span>": "<span id="high_price" contentEditable="true">{{extracted_product.high_price}}</span>",
+        "<span contentEditable="true">lowPrice</span>": "<span id="low_price" contentEditable="true">{{extracted_product.low_price}}</span>",
+      "<span contentEditable="true">priceValidUntil</span>": "<span contentEditable="true"></span>", 
+      "<span contentEditable="true">itemCondition</span>": "<span contentEditable="true"></span>", 
+      "<span contentEditable="true">countryOfOrigin</span>": "", <span id="country" contentEditable="true"></span>
+      "<span contentEditable="true">availability</span>": "<span contentEditable="true">http://schema.org/InStock</span>",
+      "<span contentEditable="true">seller</span>": <span></span>
+          "<span contentEditable="true">@type</span>": "<span contentEditable="true">{{user_company.company_type}}</span>",
+          "<span contentEditable="true">name</span>": "<span contentEditable="true">{{user_company.company_name}}</span>" <div id="added_meta_tag"></div>
+      }
+}         
+    </code>
+  </pre>
+               </blockquote>
+               <blockquote>
+                  <pre id="displayed_code_rdf" class="tabcontent">
+    <code class="language-rdf" contentEditable="true">
+
+&lt;div vocab="https://schema.org/" typeof="Product"&gt;
+
+    &lt;div property="mainEntity" typeof="{{extracted_product.category}}"&gt;
+
+        &lt;img property="image" src="test.jpg" alt="{{extracted_product.title}}"&gt; 
+        
+        &lt;span&gt; property="name"&gt;{{extracted_product.title}}&lt;/span&gt;
+        &lt;spanproperty="description"&gt;{{extracted_product.description}}&lt;/span&gt;
+        &lt;span property="lowPrice"&gt;{{lowPrice}}&lt;/span&gt; 
+        &lt;span property="highPrice"&gt;{{highPrice}}&lt;/span&gt;
+        &lt;span property="priceCurrency" content="USD"&gt;{{extracted_product.currency}}&lt;/span&gt;
+
+    &lt;/div&gt;
+          
+&lt;/div&gt;
+
+    </code>
+  </pre>
+               </blockquote>
+               <blockquote>
+                  <pre id="displayed_code_microdata" class="tabcontent">
+    <code class="language-microdata" contentEditable="true">
+&lt;div itemscope itemtype="https://schema.org/Product"&gt;
+
+    &lt;div itemprop="mainEntity" typeof="{{extracted_product.category}}"&gt;
+
+        &lt;img itemprop="image" src="test.jpg" alt="{{extracted_product.title}}"&gt; 
+        
+        &lt;span&gt; itemprop="name"&gt;{{extracted_product.title}}&lt;/span&gt;
+        &lt;span itemprop="description"&gt;{{extracted_product.description}}&lt;/span&gt;
+        &lt;span itemprop="lowPrice"&gt;{{lowPrice}}&lt;/span&gt; 
+        &lt;span itemprop="highPrice"&gt;{{highPrice}}&lt;/span&gt;
+        &lt;span itemprop="priceCurrency" content="USD"&gt;{{extracted_product.currency}}&lt;/span&gt;
+
+    &lt;/div&gt;
+          
+&lt;/div&gt;
+    </code>
+  </pre>
+               </blockquote>
+            </div>
+         </div>
+      </div>
+      </div>
+      </div>
+      </div>
+   </section>
+
+{% endif %}
+</body>
+<script>
+   $('#title').keyup(function () {
+    $('#title_update_one').text($(this).val());
+     });
+   
+   $('#description').keyup(function () {
+     $('#description_update_one').text($(this).val());
+     });
+   
+   $('#brand').keyup(function () {
+    $('#brand_update_one').text($(this).val());
+      });
+   
+   $('#country').keyup(function () {
+    $('#country_update_one').text($(this).val());
+     });
+   
+   $('#category').keyup(function () {
+    $('#category_update_one').text($(this).val());
+     });
+   
+   function UpdateExtractedProduct(){
+   
+     namespace = '/product_edit_socket';
+     var socket = io(namespace);
+   
+     var product_id = {{extracted_product.id|tojson}};
+   
+     var title = document.getElementById("title").textContent;
+     var description = document.getElementById("description").textContent;
+     var brand = document.getElementById("brand").textContent;
+     var low_price = document.getElementById("low_price").textContent;
+     var high_price = document.getElementById("high_price").textContent;
+     var currency = document.getElementById("currency").textContent;
+     var country = document.getElementById("country").textContent;
+     var category = document.getElementById("category").textContent;
+   
+     socket.on('connect', function() {
+     socket.emit('my_event', { product_id: product_id,
+                               title: title,
+                               description: description,
+                               brand:brand,
+                               low_price: low_price,
+                               high_price: high_price,
+                               currency: currency,
+                               country: country,
+                               category: category});
+     });
+   
+   
+   socket.on('title_update', function(msg) {
+        document.getElementById("title_update_one").innerHTML = msg;
+        document.getElementById("title").innerHTML = msg;
+      });
+   
+   socket.on('description_update', function(msg) {
+        document.getElementById("description_update_one").innerHTML = msg;
+        document.getElementById("description").innerHTML = msg;
+      })
+   
+   socket.on('brand_update', function(msg) {
+        document.getElementById("brand_update_one").innerHTML = msg;
+        document.getElementById("brand").innerHTML = msg;
+      })
+   
+   socket.on('low_price_update', function(msg) {
+        document.getElementById("low_price_update_one").innerHTML = msg;
+        document.getElementById("low_price").innerHTML = msg;
+      })
+   
+   socket.on('high_price_update', function(msg) {
+        document.getElementById("high_price_update_one").innerHTML = msg;
+        document.getElementById("high_price").innerHTML = msg;
+      })
+   
+   socket.on('currency_update', function(msg) {
+        document.getElementById("currency").innerHTML = msg;
+      })
+   
+   socket.on('country_update', function(msg) {
+        document.getElementById("country").innerHTML = msg;
+      })
+   
+   socket.on('category_update', function(msg) {
+        document.getElementById("category_update_one").innerHTML = msg;
+        document.getElementById("category").innerHTML = msg;
+      })
+   
+     }
+</script>
+<script>
+   
+   function AddCode(){
+     document.getElementById("add_code").style.display = "block";
+   };
+
+   function close_add_code() {
+   
+     document.getElementById("add_code").style.display = "none";
+   
+     namespace = '/add_product_meta_code';
+     var socket = io(namespace);
+   
+     var meta_key = document.getElementById("meta_key").value
+     var meta_value = document.getElementById("meta_value").value
+
+     if (meta_key.length > 1 && meta_value.length > 1){
+   
+         socket.on('connect', function() {
+
+            socket.emit('my_event_2', { meta_key: meta_key,
+                                        meta_value: meta_value,
+                                  });
+         });
+      
+          socket.on('added_meta_tag', function(msg) {
+
+            document.getElementById("added_meta_tag").innerHTML = msg;
+            document.getElementById("added_meta_tag").contentEditable = "true";
+
+          });
+      }
+   }
+   
+</script>
+<script>
+   function autocomplete(inp, arr) {
+       /*the autocomplete function takes two arguments,
+       the text field element and an array of possible autocompleted values:*/
+       var currentFocus;
+       /*execute a function when someone writes in the text field:*/
+       inp.addEventListener("input", function(e) {
+           var a, b, i, val = this.value;
+           /*close any already open lists of autocompleted values*/
+           closeAllLists();
+           if (!val) { return false;}
+           currentFocus = -1;
+           /*create a DIV element that will contain the items (values):*/
+           a = document.createElement("DIV");
+           a.setAttribute("id", this.id + "autocomplete-list");
+           a.setAttribute("class", "autocomplete-items");
+           /*append the DIV element as a child of the autocomplete container:*/
+           this.parentNode.appendChild(a);
+           /*for each item in the array...*/
+           for (i = 0; i < arr.length; i++) {
+             /*check if the item starts with the same letters as the text field value:*/
+             if (arr[i].substr(0, val.length).toUpperCase() == val.toUpperCase()) {
+               /*create a DIV element for each matching element:*/
+               b = document.createElement("DIV");
+               /*make the matching letters bold:*/
+               b.innerHTML = "<strong>" + arr[i].substr(0, val.length) + "</strong>";
+               b.innerHTML += arr[i].substr(val.length);
+               /*insert a input field that will hold the current array item's value:*/
+               b.innerHTML += "<input type='hidden' value='" + arr[i] + "'>";
+               /*execute a function when someone clicks on the item value (DIV element):*/
+               b.addEventListener("click", function(e) {
+                   /*insert the value for the autocomplete text field:*/
+                   inp.value = this.getElementsByTagName("input")[0].value;
+                   /*close the list of autocompleted values,
+                   (or any other open lists of autocompleted values:*/
+                   closeAllLists();
+               });
+               a.appendChild(b);
+             }
+           }
+       });
+       /*execute a function presses a key on the keyboard:*/
+       inp.addEventListener("keydown", function(e) {
+           var x = document.getElementById(this.id + "autocomplete-list");
+           if (x) x = x.getElementsByTagName("div");
+           if (e.keyCode == 40) {
+             /*If the arrow DOWN key is pressed,
+             increase the currentFocus variable:*/
+             currentFocus++;
+             /*and and make the current item more visible:*/
+             addActive(x);
+           } else if (e.keyCode == 38) { //up
+             /*If the arrow UP key is pressed,
+             decrease the currentFocus variable:*/
+             currentFocus--;
+             /*and and make the current item more visible:*/
+             addActive(x);
+           } else if (e.keyCode == 13) {
+             /*If the ENTER key is pressed, prevent the form from being submitted,*/
+             e.preventDefault();
+             if (currentFocus > -1) {
+               /*and simulate a click on the "active" item:*/
+               if (x) x[currentFocus].click();
+             }
+           }
+       });
+       function addActive(x) {
+         /*a function to classify an item as "active":*/
+         if (!x) return false;
+         /*start by removing the "active" class on all items:*/
+         removeActive(x);
+         if (currentFocus >= x.length) currentFocus = 0;
+         if (currentFocus < 0) currentFocus = (x.length - 1);
+         /*add class "autocomplete-active":*/
+         x[currentFocus].classList.add("autocomplete-active");
+       }
+       function removeActive(x) {
+         /*a function to remove the "active" class from all autocomplete items:*/
+         for (var i = 0; i < x.length; i++) {
+           x[i].classList.remove("autocomplete-active");
+         }
+       }
+       function closeAllLists(elmnt) {
+         /*close all autocomplete lists in the document,
+         except the one passed as an argument:*/
+         var x = document.getElementsByClassName("autocomplete-items");
+         for (var i = 0; i < x.length; i++) {
+           if (elmnt != x[i] && elmnt != inp) {
+             x[i].parentNode.removeChild(x[i]);
+           }
+         }
+       }
+       /*execute a function when someone clicks in the document:*/
+       document.addEventListener("click", function (e) {
+           closeAllLists(e.target);
+       });
+     }
+   
+   var imagetext = {{ imagetext|safe }}
+   
+   //list of all keys in schema.org
+   
+   autocomplete(document.getElementById("meta_key"), imagetext);
+   autocomplete(document.getElementById("meta_value"), imagetext);
+   
+</script>
+<script>
+   //Code to copy the code
+   const copyButtonLabel = "Copy Code";
+   
+   let blocks = document.querySelectorAll("pre");
+   
+   blocks.forEach((block) => {
+   
+     if (navigator.clipboard) {
+
+       let button = document.createElement('button');
+       button.classList.add('copy_code_button');
+       button.innerText = copyButtonLabel;
+       button.addEventListener("click", copyCode);
+       block.appendChild(button);
+
+     }
+   });
+   
+   async function copyCode(event) {
+
+     const button = event.srcElement;
+     const pre = button.parentElement;
+     let code = pre.querySelector("code");
+   
+     let text = code.innerText;
+      
+     if (code.className == "language-json"){
+       
+       meta_text = text 
+
+     }
+     
+     if(code.className == "language-rdf"){
+       meta_text = text
+     }
+   
+     if(code.className == "language-microdata"){
+       meta_text = text
+     }
+   
+     await navigator.clipboard.writeText(meta_text);
+   
+     var product_id = {{extracted_product.id|tojson}};
+   
+     namespace = '/save_meta_text';
+     var socket = io(namespace);
+   
+     socket.on('connect', function() {
+       socket.emit('my_event_3', { product_id: product_id,
+                                   meta_text: meta_text
+                                });
+       });
+     
+     button.innerText = "Code Copied";
+     
+     setTimeout(()=> {
+       button.innerText = copyButtonLabel;
+     }, 1000);
+};
+</script>
+
+<script>
+   //show tabs
+   document.getElementById("defaultOpen").click();
+   
+   function openTab(evt, cityName) {
+     var i, tabcontent, tablinks;
+     tabcontent = document.getElementsByClassName("tabcontent");
+     for (i = 0; i < tabcontent.length; i++) {
+       tabcontent[i].style.display = "none";
+     }
+     tablinks = document.getElementsByClassName("tablinks");
+     for (i = 0; i < tablinks.length; i++) {
+       tablinks[i].className = tablinks[i].className.replace(" active", "");
+     }
+     document.getElementById(cityName).style.display = "block";
+     evt.currentTarget.className += " active";
+   }
+</script>
+
+
+<!--Safe Meta Tag Code-->
+<script>
+
+    function save_meta_tag_data(){
+
+      var product_id = {{extracted_product.id|tojson}};
+
+      let code = document.getElementsByTagName("code");
+
+      json_ld_meta_data = code.item(0).innerHTML
+
+      rdf_meta_data = code.item(1).innerHTML
+      microdata_meta_data = code.item(2).innerHTML
+
+      function transform_code(code){
+         
+         code = code.replace(/(<([^>]+)>)/gi, "");
+         return code
+      };
+
+      json_ld_meta_data = transform_code(json_ld_meta_data);
+      rdf_meta_data = transform_code(rdf_meta_data);
+      microdata_meta_data = transform_code(microdata_meta_data);
+
+      namespace = '/add_product_meta_code';
+      var socket = io(namespace);
+   
+      socket.on('connect', function() {
+      socket.emit('my_event_4', { product_id: product_id,
+                                  meta_tag_code_json_ld: json_ld_meta_data,
+                                  meta_tag_code_rdf: rdf_meta_data,
+                                  meta_tag_code_microdata: microdata_meta_data
+                              });
+      });
+
+    };
+
+    save_meta_tag_data();
+
+</script>
+{% endblock %}

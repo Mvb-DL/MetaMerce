@@ -1,0 +1,609 @@
+{% extends "base.html" %} {% block title %}Landing Page{% endblock %} {% block content
+	%}
+	<!DOCTYPE html>
+	<html lang="de">
+	  <head>
+		<title>Meta Merce</title>
+		<!-- Meta -->
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="description" content="">
+		<meta name="author" content="Mario von Bassen">
+		<link rel="shortcut icon" href="assets\images\icon.jpg">
+		<link id="theme-style" rel="stylesheet"  href="{{ url_for('static', filename='/stylesheets/landingpage_theme.css') }}" />
+		<script src='http://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.js'></script>
+		<script src="https://code.highcharts.com/highcharts.js"></script>
+		<script src="https://code.highcharts.com/modules/networkgraph.js"></script>
+		<script src="https://code.highcharts.com/modules/accessibility.js"></script>
+	  </head>
+	  <body>
+		<section class="start-section">
+		  <div class="container">
+			<div class="row">
+			  <div class="col-md-6 pt-5 mb-5">
+				<div class="promo pe-md-3 pe-lg-5">
+				  <h1 class="headline mb-3 text-left">
+					Classify your products
+				  </h1>
+				  <!--//headline-->
+				  <div class="subheadline mb-4 text-left">
+					<h3 id="special_subline">Get your products meta tagged and increase your sales</h3>
+					<br>	
+				  </div>
+				  <!--//subheading-->
+				  <div class="cta-holder row gx-md-3 gy-3 gy-md-0">
+					<div class="col-12 text-left">
+					  <div class="password hidden"></div>
+					  <a href="{{ url_for('views.home') }}"><button type="submit" id="first-button" class="btn btn-primary button start">Upload Product</button></a>
+					</div>
+				  </div>
+				  <!--//cta-holder-->
+				</div>
+				<!--//promo-->
+			  </div>
+			  <!--col-->
+			  <div class="col-md-6 scanning_animation">
+				<div class="ocrloader">
+				  <p>Scanning</p>
+				  <em></em>
+				  <span></span>
+				  <img id="product_icon_one" src="https://img.icons8.com/nolan/256/product.png"/>
+				</div>
+			  </div>
+			</div>
+			<!--//row-->
+		  </div>
+		</section>
+		<section id="author-section" class="author-section theme-bg-primary py-5">
+		  <div class="container">
+			<h2 class="section-heading text-center">Hard Facts about Meta-merce</h2>
+			<div class="container-fluid" id="facts">
+			  <div class="row ">
+				<div class="col-sm d-flex justify-content-center">
+				  <div>
+					<h3>{{number_products}}</h3>
+					<!--Hier Dynamische anzahl uploads!-->
+					<h4>Products uploaded by community</h4>
+					<h5>Every day our employees give their best to classify your products perfectly</h5>
+				  </div>
+				</div>
+				<div class="col-sm d-flex justify-content-center">
+				  <div>
+					<h3>91,2%</h3>
+					<!--Hier Dynamische anzahl uploads!-->
+					<h4>of the products identified correctly</h4>
+					<h5>and without delays, if then only extremely rarely</h5>
+				  </div>
+				</div>
+				<div class="col-sm d-flex justify-content-center">
+				  <div>
+					<h3>+7%</h3>
+					<!--Hier Dynamische anzahl uploads!-->
+					<h4>average increase of the website ranking</h4>
+					<h5>our users were able to record according to ITC</h5>
+				  </div>
+				</div>
+			  </div>
+			</div>
+		  </div>
+		</section>
+		<section id="video-section" class="video-section">
+		  <h2 class="section-heading text-center">How it works. A Brief Tutorial</h2>
+		  <section class="timeline">
+			<ul>
+			  <li>
+				<div>
+				  <time class="steps" data-text="Step one"></time>
+				  <span>Just open the Meta-Merce Website and create an account</span>
+				</div>
+			  </li>
+			  <li>
+				<div>
+				  <time class="steps" data-text="Step two"></time> 
+				  <span>Go to the upload dashboard and check how you want to upload your product</span>
+				</div>
+			  </li>
+			  <li>
+				<div>
+				  <time class="steps" data-text="Step three"></time> 
+				  <span>Go to the upload dashboard and check how you want to upload your product</span>				
+				</div>
+			  </li>
+			  <li>
+				<div>
+				  <time class="steps" data-text="Step four"></time>  
+				  <span>In mattis elit vitae odio posuere, nec maximus massa varius. Suspendisse varius volutpat mattis. Vestibulum id magna est.</span>
+				</div>
+			  </li>
+			  <li>
+				<div>
+				  <time class="steps" data-text="Step five"></time>  
+				  In mattis elit vitae odio posuere, nec maximus massa varius. Suspendisse varius volutpat mattis. Vestibulum id magna est.
+				</div>
+			  </li>
+			</ul>
+		  </section>
+		</section>
+		<!-- <canvas id="canvas" width="600" height="500"></canvas>-->
+		<section class="container model-presentation">
+		  <div class="col-md-12 flow_chart">
+			<h2 class="mb-4 text-center">Artifical Intelligence Model</h2>
+			<h4>Your Upload</h4>
+			<svg viewbox="0 0 10 100">
+			  <line x1="5" x2="5" y1="0" y2="100"/>
+			</svg>
+			<div class="flow_chart__sources">
+			  <div class="sources--cms" id="product_input">
+				<h3>OCR Model</h3>
+				<p>Extracts the text of your images</p>
+			  </div>
+			</div>
+			<svg viewbox="0 0 10 100">
+			  <line x1="5" x2="5" y1="0" y2="100"/>
+			</svg>
+			<div class="flow_chart__sources">
+			  <div class="sources--cms" id="ocr_model_input">
+				<h3>Title Model</h3>
+				<p>Will find the title of your product</p>
+			  </div>
+			</div>
+			<svg viewbox="0 0 10 100">
+			  <line x1="5" x2="5" y1="0" y2="100"/>
+			</svg>
+			<div class="flow_chart__sources">
+			  <div class="sources--cms">
+				<h3>Category Model</h3>
+				<p>Choose carefully the category</p>
+			  </div>
+			  <div class="sources--markdown">
+				<h3>Brand Model</h3>
+				<p>Detects the products brand</p>
+			  </div>
+			  <div class="sources--data">
+				<h3>Extraction of other attributes</h3>
+				<p>and finds every other attribute</p>
+			  </div>
+			</div>
+			<svg viewbox="0 0 10 100">
+			  <line x1="5" x2="5" y1="0" y2="100"/>
+			</svg>
+			<div class="flow_chart__sources">
+			  <div class="sources--cms">
+				<h3>Transformer</h3>
+				<p>Transforms the result into the schema you need</p>
+			  </div>
+			</div>
+			<svg viewbox="0 0 10 100">
+			  <line x1="5" x2="5" y1="0" y2="100"/>
+			</svg>
+			<div class="container__deploy">
+			  <h3>Result</h3>
+			  <p>As result you will get your meta code snippet and you just have to place it into your source code.</p>
+			</div>
+		  </div>
+		</section>
+		<section class="knowledge-graph-presentation">
+		  <div class="row d-flex">
+			<div class="col-md-9">
+			  <div id="container"></div>
+			</div>
+			<div class="col-md-3">
+			  <h2>Knowledge Graph</h2>
+			  <p>Based on the uploaded and classified products, a knowledge graph about the assortment of the respective e-commerce store
+				is automatically created. This also serves as the basis for implementing various machine learning approaches,
+				such as a recommender system and displays even complex relations between different entities.
+			  </p>
+			</div>
+		  </div>
+		</section>
+		<section class="testimonials">
+		  <div class="row d-flex justify-content-center">
+			<div class="col-md-10 col-xl-8 text-center">
+			  <h3 class="mb-4">What the Community of Meta-merce says</h3>
+			</div>
+		  </div>
+		  <div class="row text-center">
+			<div class="col-md-4 mb-5 mb-md-0">
+			  <div class="d-flex justify-content-center mb-4">
+				<img src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(1).webp"
+				  class="rounded-circle shadow-1-strong" width="150" height="150" />
+			  </div>
+			  <h5 class="mb-3">Maria Smantha</h5>
+			  <h6 class="mb-3">Web Developer</h6>
+			  <p class="px-xl-3">
+				"I am a skeptic by nature, but the benefits of ETC exceeded my skepticism."
+			  </p>
+			</div>
+			<div class="col-md-4 mb-5 mb-md-0">
+			  <div class="d-flex justify-content-center mb-4">
+				<img src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(2).webp"
+				  class="rounded-circle shadow-1-strong" width="150" height="150" />
+			  </div>
+			  <h5 class="mb-3">Lisa Cudrow</h5>
+			  <h6 class="mb-3">Graphic Designer</h6>
+			  <p class="px-xl-3">
+				"I have little time to take care of the product catalog. ETC has been a huge help to me in addition to being completely stress free. I can recommend 100%!"
+			  </p>
+			</div>
+			<div class="col-md-4 mb-0">
+			  <div class="d-flex justify-content-center mb-4">
+				<img src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(9).webp"
+				  class="rounded-circle shadow-1-strong" width="150" height="150" />
+			  </div>
+			  <h5 class="mb-3">John Smith</h5>
+			  <h6 class="mb-3">Marketing Specialist</h6>
+			  <p class="px-xl-3">
+				"How much time I have always needed for data to be entered. With ETC this will never happen to me again!"
+			  </p>
+			</div>
+		  </div>
+		</section>
+		<section class="faq-section">
+		  <div class="faq_area " id="faq">
+			<div class="container">
+			  <div class="row justify-content-center">
+				<div class="col-12 col-sm-8 col-lg-6">
+				  <!-- Section Heading-->
+				  <div class="section_heading text-center wow fadeInUp" data-wow-delay="0.2s" style="visibility: visible; animation-delay: 0.2s; animation-name: fadeInUp;">
+					<h3><span>Frequently </span> Asked Questions</h3>
+					<p>Here you can see the frequent questions our customer are confronted with</p>
+					<div class="line"></div>
+				  </div>
+				</div>
+			  </div>
+			  <div class="row justify-content-center">
+				<!-- FAQ Area-->
+				<div class="col-12 col-sm-10 col-lg-8">
+				  <div class="accordion faq-accordian" id="faqAccordion">
+					<div class="card border-0 wow fadeInUp" data-wow-delay="0.2s" style="visibility: visible; animation-delay: 0.2s; animation-name: fadeInUp;">
+					  <div class="card-header" id="headingOne">
+						<h6 class="mb-0 collapsed" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">What is meta-tagging?<span class="lni-chevron-up"></span></h6>
+					  </div>
+					  <div class="collapse" id="collapseOne" aria-labelledby="headingOne" data-parent="#faqAccordion">
+						<div class="card-body">
+						  <p>Meta tags are snippets of text that describe a page’s content; the meta tags don’t appear on the page itself, but only in the page’s source code. Meta tags are essentially little content descriptors that help tell search engines what a web page is about.</p>
+						</div>
+					  </div>
+					</div>
+					<div class="card border-0 wow fadeInUp" data-wow-delay="0.3s" style="visibility: visible; animation-delay: 0.3s; animation-name: fadeInUp;">
+					  <div class="card-header" id="headingTwo">
+						<h6 class="mb-0 collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">Why is meta-tagging important?<span class="lni-chevron-up"></span></h6>
+					  </div>
+					  <div class="collapse" id="collapseTwo" aria-labelledby="headingTwo" data-parent="#faqAccordion">
+						<div class="card-body">
+						  <p>Meta tags are important because they impact how your site appears in the SERPs and how many people will be inclined to click through to your website. They will therefore impact your traffic and engagement rates, which can impact your SEO and rankings.</p>
+						</div>
+					  </div>
+					</div>
+					<div class="card border-0 wow fadeInUp" data-wow-delay="0.4s" style="visibility: visible; animation-delay: 0.4s; animation-name: fadeInUp;">
+					  <div class="card-header" id="headingThree">
+						<h6 class="mb-0 collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="true" aria-controls="collapseThree">How does it works?<span class="lni-chevron-up"></span></h6>
+					  </div>
+					  <div class="collapse" id="collapseThree" aria-labelledby="headingThree" data-parent="#faqAccordion">
+						<div class="card-body">
+						  <p>It is quite simple. You just create an account at Meta-Merce and upload your products as image or text and then it will be processed.</p>
+						</div>
+					  </div>
+					</div>
+				  </div>
+				  <!-- Support Button-->
+				  <div class="support-button text-center d-flex align-items-center justify-content-center mt-4 wow fadeInUp" data-wow-delay="0.5s" style="visibility: visible; animation-delay: 0.5s; animation-name: fadeInUp;">
+					<i class="lni-emoji-sad"></i>
+					<p class="mb-0 px-2">Can't find your answers?</p>
+					<a href="#"> Contact us</a>
+				  </div>
+				</div>
+			  </div>
+			</div>
+		  </div>
+		</section>
+	  </body>
+	  <script>
+		(function () {
+		  "use strict";
+		
+		  // define variables
+		  var items = document.querySelectorAll(".timeline li");
+		
+		  var element = document.querySelectorAll(".timeline ul li div time");
+		
+		  var knowledge_graph_element = document.querySelector("#container");
+		
+		function isElementInViewport(el) {
+			var rect = el.getBoundingClientRect();
+			return (
+			  rect.top >= 0 &&
+			  rect.left >= 0 &&
+			  rect.bottom <=
+				(window.innerHeight || document.documentElement.clientHeight) &&
+			  rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+			);
+		  }
+		
+		
+		function callbackFunc() {
+			for (var i = 0; i < items.length; i++) {
+			  if (isElementInViewport(items[i])) {
+				items[i].classList.add("in-view");
+			  }
+			}
+		  }
+		
+		
+		function numbers_to_letters(){
+		
+			for (let count = 0; count < element.length; count++) {
+		
+				if (isElementInViewport(element[count])) {
+		
+					const startTime = Date.now();
+					const duration = 500;
+					const letters = element[count].dataset.text.split("");
+					const steps = letters.length;
+		
+					const map = (n, x1, y1, x2, y2) => Math.min(Math.max(((n - x1) * (y2 - x2)) / (y1 - x1) + x2, x2), y2);
+		
+					const random = (set) => set[Math.floor(Math.random() * set.length)];
+		
+					let frame;
+		
+					(function animate() {
+		
+					  frame = requestAnimationFrame(animate);
+					
+					  const step = Math.round(map(Date.now() - startTime, 0, duration, 0, steps));
+					
+					  element[count].innerText = letters
+		
+						.map((s, i) => (step - 1 >= i ? letters[i] : random("0123456789")))
+						.join("");
+					
+					  if (step >= steps) {
+						cancelAnimationFrame(frame);
+					  }
+					})();
+			  };
+			};
+		  }; 
+		
+		
+		function startApp() {
+		  
+		//if (isElementInViewport(knowledge_graph_element)) {
+		
+			var automotiveColor = "#913ca0",
+					clothingColor = "#ecb27b",
+					officeproductsColor = "#ec7bb6",
+					electronicsColor = "#fff"
+		
+		Highcharts.chart('container', {
+		
+		chart: {
+		  type: 'networkgraph',
+		  backgroundColor: ""
+		},
+		
+		
+			  title: {
+				text: ''
+			  },
+		
+			  plotOptions: {
+				networkgraph: {
+				  keys: ['from', 'to'],
+				  layoutAlgorithm: {
+					enableSimulation: true,
+					integration: 'verlet',
+					linkLength: 100
+				  }
+				}
+			  },
+		
+			  series: [{
+				marker: {
+				  radius: 25,
+				},
+		
+				dataLabels: {
+				  enabled: true,
+				  linkFormat: '',
+				  allowOverlap: true
+				},
+		
+				data: [
+				  ['Product', 'Automotive'],
+				  ['Product', 'Electronics'],
+				  ['Product', 'Clothing'],
+				  ["Product", "Office Products"],
+				  ["Automotive", "Jaguar"],
+				  ["Automotive", "Mercedes"],
+				  ["Electronics", "Samsung Television"],
+				  ["Electronics", "Iphone 14"],
+				  ["Office Products", "Office Table"],
+				  ["Mercedes", "Price"],
+				  ["Mercedes", "Seats"],
+				  ["Mercedes", "Power"],
+				  ["Price","80k"],
+				  ["Seats","4"],
+				  ["Power","247"],
+				  ["Office Table", "Height"],
+				  ["Height", "120cm"],
+				  ["Iphone 14", "Color"],
+				  ["Iphone 14", "Storage"],
+				  ["Color", "Black"],
+				  ["Storage", "128GB"],
+				  ["Samsung Television", "Size"],
+				  ["Size", "3840 x 2160px"],
+				],
+				nodes: [{
+				  id: 'Clothing',
+				  color: clothingColor,
+				  marker: {
+				  radius: 15,
+				}, }, 
+				  {
+				  id: 'Automotive',
+				  color: automotiveColor,
+				  marker: {
+				  radius: 15,
+				},
+				}, {
+				  id: 'Electronics',
+				  color: electronicsColor,
+				  marker: {
+				  radius: 15,
+				},
+				}, {
+				  id: 'Office Products',
+				  color: officeproductsColor,
+				  marker: {
+				  radius: 15,
+				},},
+				{
+				  id: 'Jaguar',
+				  color: automotiveColor,
+				  marker: {
+				  radius: 10,
+				},},
+				{
+				  id: 'Mercedes',
+				  color: automotiveColor,
+				  marker: {
+				  radius: 10,
+				},},
+				{
+				  id: 'Samsung Television',
+				  color: electronicsColor,
+				  marker: {
+				  radius: 10,
+				},},
+				{
+				  id: 'Iphone 14',
+				  color: electronicsColor,
+				  marker: {
+				  radius: 10,
+				},},
+				{
+				  id: 'Office Table',
+				  color: officeproductsColor,
+				  marker: {
+				  radius: 10,
+				},},
+				{
+				  id: 'Price',
+				  color: automotiveColor,
+				  marker: {
+				  radius: 5,
+				},},
+				{
+				  id: 'Seats',
+				  color: automotiveColor,
+				  marker: {
+				  radius: 5,
+				},},
+				{
+				  id: 'Power',
+				  color: automotiveColor,
+				  marker: {
+				  radius: 5,
+				},},
+				{
+				  id: '80k',
+				  color: automotiveColor,
+				  marker: {
+				  radius: 2,
+				},},
+				{
+				  id: '4',
+				  color: automotiveColor,
+				  marker: {
+				  radius: 2,
+				},},
+				{
+				  id: '247',
+				  color: automotiveColor,
+				  marker: {
+				  radius: 2,
+				},},
+				{
+				  id: 'Height',
+				  color: officeproductsColor,
+				  marker: {
+				  radius: 5,
+				},},
+				{
+				  id: '120cm',
+				  color: officeproductsColor,
+				  marker: {
+				  radius: 2,
+				},},
+				{
+				  id: 'Color',
+				  color: electronicsColor,
+				  marker: {
+				  radius: 5,
+				},},
+				{
+				  id: 'Black',
+				  color: electronicsColor,
+				  marker: {
+				  radius: 2,
+				},},
+				{
+				  id: 'Storage',
+				  color: electronicsColor,
+				  marker: {
+				  radius: 5,
+				},},
+				{
+				  id: '128GB',
+				  color: electronicsColor,
+				  marker: {
+				  radius: 2,
+				},},
+				{
+				  id: 'Size',
+				  color: electronicsColor,
+				  marker: {
+				  radius: 5,
+				},},
+				{
+				  id: '3840 x 2160px',
+				  color: electronicsColor,
+				  marker: {
+				  radius: 2,
+				},},
+			]
+			  }]
+			});
+		
+
+		};
+		
+		
+		  // listen for events
+		  window.addEventListener("load", callbackFunc);
+		  window.addEventListener("resize", callbackFunc);
+		  window.addEventListener("scroll", callbackFunc);
+		  window.addEventListener("scroll", numbers_to_letters);
+		
+		
+		//call function only once
+		const once = fn => {
+		  let called = false;
+		  return function(...args) {
+			if (called) return;
+			called = true;
+			return fn.apply(this, args);
+		  };
+		};
+		
+		
+		window.addEventListener('scroll', once(startApp));
+		
+		})();
+		
+	  </script>
+	</html>
+	{% endblock %}

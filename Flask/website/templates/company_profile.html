@@ -1,0 +1,333 @@
+{% extends "base.html" %} {% block title %}Company Profile{% endblock %}
+
+{% block content%}
+
+<head>
+  
+    <link id="theme-style" rel="stylesheet"  href="{{ url_for('static', filename='/stylesheets/company_profile.css') }}"/>
+
+    <script 
+		src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"
+	 	integrity="sha512-q/dWJ3kcmjBLU4Qc47E4A9kTB4m3wuTY7vkFJDTZKjTs8jhyGQnaUrxa0Ytd0ssMZhbNua9hE+E7Qv1j+DyZwA=="
+		crossorigin="anonymous">
+    </script>
+
+</head>
+
+<body>
+
+{% if user.is_authenticated  %}
+
+<div class="container">
+
+  <div class="row">
+  
+    <div class="col-md-4 mt-5 mb-5">
+
+      {% for name in user_company %}
+          
+            <div class="card p-3 text-center">
+
+              <div>
+                <h2 class="pt-2">Company Profile</h2>
+              </div>
+
+              <div>
+                <h3 class="pt-2">{{name.company_name}}</h3>
+              </div>
+
+              <div>
+                <span class="pt-1 clearfix">{{name.company_type}}</span>
+              </div>
+                
+                  <div class="row pt-3">
+                  
+                    <div class="col-md-4">
+                      <h6>Category</h6>
+                    <span class="num">TODO</span>
+                    </div>
+                    <div class="col-md-4">
+                      <h6>Products</h6>
+                    <span class="num">{{number_products}}</span>
+                    </div>
+                    <div class="col-md-4">
+                      <h6>Websites</h6>
+                    <span class="num"></span>
+                    </div>
+                  
+                  </div>
+                
+                  <hr class="line">
+                
+                  <small class="mt-4">Shop Description</small>
+                
+                  <div class="profile pt-5">
+                      <form action="/export_knowledge_graph", method="POST">
+                        <button type="submit" class="profile_button px-5" id="export_knowledge_graph" name="export_knowledge_graph">Export Knowledge Graph</button>
+                      </form>
+                  </div>
+
+            </div>
+      
+      {% endfor %}
+    </div>
+
+
+  <div class="col-md-8 mt-2">
+
+    <section class="assortment-tree">
+
+        <div class="tree-container">
+
+          <h1 class="text-center">Knowledge Graph</h1>
+
+          {% if extracted_product|length > 3 %}
+
+                      
+              <h1 id="knowledgegraph-alert">Knowledgegraph is to big to full display!</h1>
+
+
+          {% endif %}
+
+          {% for name in user_company %}
+
+          {% if name.id == user_company_id %}
+
+        
+          <ul class="tree">
+
+            <li>
+              
+              <span id="company_name">{{name.company_name}}</span>
+
+              <ul>
+              
+                <span id="type">Type</span>
+
+                <ul>
+
+                {% for category_name in category_names %}
+                
+                <li id="electronics">
+
+                  <span id="category_name">{{category_name}}</span>
+
+                {% if extracted_product|length < 4 %}
+
+                {% for product in extracted_product %}
+
+                    {% if product.category == category_name %}
+
+                      <ul>
+                        
+                          <div><span onclick="openForm({{ product.id }})"><button type="button" class="delete_product" onClick="deleteProduct({{ product.id }})"><i class="fa fa-close"></i></button>Product Id: {{product.id}}</span></div>
+
+                          <ul>
+                            <li>
+                              <span id="title_update">{{product.title}}</span>
+                            </li>
+                            <li>
+                              <span id="brand_update">{{product.brand}}</span>
+                            </li>
+                            <li>
+                              <span id="currency_update">{{product.currency}}</span>
+                            </li>
+                            <li>
+                              <span id="high_price_update">{{product.high_price}}</span>
+                            </li>
+                            <li>
+                              <span id="low_price_update">{{product.low_price}}</span>
+                            </li>
+                            <li>
+                              <span id="description_update">{{product.description}}</span>
+                            </li>
+
+                            {% if products|length > 1 %}
+                              <li>
+                                <span id="country_update">{{ product.country if product.country is not none }}</span>
+                              </li>
+                            {% endif %}
+                            
+                          </ul>     
+
+                      </ul>
+
+                      
+                      <div class="col-12 form-popup" id="edit_attributes_form">
+
+                        <form class="container">
+
+                          <div class="row">
+
+                            <div class="form-group col-12">
+                              <label for="edit_title">Title</label>
+                              <input type="text" class="form-control" id="edit_title" placeholder="{{product.title}}">
+                            </div>
+
+                          </div>
+
+                          <div class="row">
+
+                            <div class="form-group col-12">
+                              <label for="edit_description">Description</label>
+                              <input type="text" class="form-control" id="edit_description" placeholder="{{product.description}}">
+                            </div>
+
+                          </div>
+
+                          <div class="row">
+
+                            <div class="form-group col-6">
+                              <label for="edit_brand">Brand</label>
+                              <input type="text" class="form-control" id="edit_brand" placeholder="{{product.brand}}">
+                            </div>
+
+                            <div class="form-group col-6">
+                              <label for="edit_currency">Currency</label>
+                              <input type="text" class="form-control" id="edit_currency" placeholder="{{product.currency}}">
+                            </div>
+
+                          </div>
+
+                          <div class="row">
+
+                            <div class="form-group col-6">
+                              <label for="edit_high_price">High Price</label>
+                              <input type="text" class="form-control" id="edit_high_price" placeholder="{{product.high_price}}">
+                            </div>
+
+                            <div class="form-group col-6">
+                              <label for="edit_low_price">Low Price</label>
+                              <input type="text" class="form-control" id="edit_low_price" placeholder="{{product.low_price}}">
+                            </div>
+
+                          </div>
+
+                          <div class="row">
+
+                            <div class="form-group col-6">
+                              <label for="edit_country">Country</label>
+                              <input type="text" class="form-control" id="edit_country" placeholder="{{product.country}}">
+                            </div>
+
+                            <div class="form-group col-6">
+                              <label for="edit_category">Category</label>
+                              <input type="text" class="form-control" id="edit_category" placeholder="{{product.category}}">
+                            </div>
+
+                          </div>
+                          
+                          <button type="button" class="close_button" onclick="closeForm({{ product.id }})">Change</button>
+                          
+                        </form>
+                          
+                          <!--<h6>Json-ld</h6><p contentEditable="true" id="meta_tag_code_json_ld">{{product.meta_tag_code_json_ld}}</p>-->
+                      
+
+                      </div>
+
+                      {% endif %}
+                      
+                                     
+                    {% endfor %}
+
+                    {% endif %}
+
+                  </li>
+  
+                  {% endfor %}
+
+                </ul>
+              </ul>
+            </li>
+
+          </ul>
+            {% endif %}
+          {% endfor %}
+        </div>
+ 
+      </section>
+
+  </div>
+  {% endif %}
+</body>
+
+<script>
+
+
+function openForm(product_id) {
+
+    document.getElementById("edit_attributes_form").id = `edit_attributes_form_${product_id}`;
+    document.getElementById(`edit_attributes_form_${product_id}`).style.display = "block";
+};
+
+function closeForm(product_id) {
+
+    document.getElementById(`edit_attributes_form_${product_id}`).style.display = "none";
+    document.getElementById(`edit_attributes_form_${product_id}`).id = "edit_attributes_form";
+
+    namespace = '/product_edit_socket';
+    let socket = io(namespace);
+
+    let title = document.getElementById("edit_title").value;
+    let description = document.getElementById("edit_description").value;
+    let brand = document.getElementById("edit_brand").value;
+    let high_price = document.getElementById("edit_high_price").value;
+    let low_price = document.getElementById("edit_low_price").value;
+    let currency = document.getElementById("edit_currency").value;
+    let country = document.getElementById("edit_country").value;
+    let category = document.getElementById("edit_category").value;
+    //var meta_tag_code_json_ld = document.getElementById("meta_tag_code_json_ld").textContent;
+
+    socket.on('connect', function() {
+        socket.emit('my_event', {
+            product_id: product_id,
+            title: title,
+            description: description,
+            brand: brand,
+            high_price: high_price,
+            low_price: low_price,
+            currency: currency,
+            country: country,
+            category: category,
+            //meta_tag_code_json_ld: meta_tag_code_json_ld
+        });
+    });
+
+    socket.on('title_update', function(msg) {
+      console.log(msg)
+        document.getElementById("title_update").innerHTML = msg;
+    });
+
+    socket.on('description_update', function(msg) {
+        document.getElementById("description_update").innerHTML = msg;
+    });
+
+    socket.on('brand_update', function(msg) {
+        document.getElementById("brand_update").innerHTML = msg;
+    });
+
+    socket.on('low_price_update', function(msg) {
+        document.getElementById("low_price_update").innerHTML = msg;
+    });
+
+    socket.on('high_price_update', function(msg) {
+        document.getElementById("high_price_update").innerHTML = msg;
+    });
+
+    socket.on('currency_update', function(msg) {
+        document.getElementById("currency_update").innerHTML = msg;
+    });
+
+    socket.on('country_update', function(msg) {
+        document.getElementById("country_update").innerHTML = msg;
+    });
+
+    socket.on('category_update', function(msg) {
+        document.getElementById("category_update").innerHTML = msg;
+    });
+  };
+
+</script>
+
+{% endblock %}

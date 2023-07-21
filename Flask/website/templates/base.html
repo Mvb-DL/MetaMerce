@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+      crossorigin="anonymous"
+    />
+
+	<link href="https://fonts.cdnfonts.com/css/gt-pressura-mono" rel="stylesheet">
+
+	<link href="https://fonts.cdnfonts.com/css/gt-walsheim" rel="stylesheet">
+
+    <link id="theme-style" rel="stylesheet"  href="{{ url_for('static', filename='/stylesheets/base_theme.css') }}" />
+
+    <title>{% block title %}Home{% endblock %}</title>
+  </head>
+  <body>
+	
+    <nav class="navbar navbar-expand-lg navbar-dark bg-black">
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbar"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbar">
+
+		<li class="navbar-brand logo"><a class="nav-link" id="logo" href={{ url_for('views.landingpage') }}>Meta Merce</a></li>
+		
+        <ul class="navbar-nav">
+
+          <!--wird nur angegzeigt, wenn der user eingeloogt ist!-->
+          {% if user.is_authenticated %}
+		  <li class="nav-item"><a class="nav-link" id="api" href={{ url_for('views.root_API') }}>MetaMerce API</a></li>
+		  <li class="nav-item"><a class="nav-link" id="account" href={{ url_for('views.account') }}>Account</a></li>
+          <li class="nav-item"><a class="nav-link" id="home" href={{ url_for('views.home') }}>Upload Dashboard</a></li>
+		  <li class="nav-item"><a class="nav-link" id="company_profile" href={{ url_for('views.company_profile') }}>Company Profile</a></li>
+          <li class="nav-item"><a class="nav-link" id="logout" href="/logout">Logout</a></li>
+		  
+          {% else %}
+          <a class="nav-item nav-link" id="logo-normal" href={{ url_for('views.landingpage') }}></a>
+          <a class="nav-item nav-link" id="login" href={{ url_for('auth.login') }}><button class="btn btn-primary" id="login-button">Login</button></a>
+		  <a class="nav-item nav-link" id="home" href={{ url_for('auth.login') }}><button class="btn btn-primary" id="home-button">Upload Product</button></a>
+          {% endif %}
+        </ul>
+      </div>
+    </nav>
+
+    {% with messages = get_flashed_messages(with_categories=true) %} {% if
+    messages %} {% for category, message in messages %} {% if category ==
+    'error' %}
+    <div class="alert alert-danger alter-dismissable fade show" role="alert">
+      {{ message }}
+      <button type="button" class="close" data-dismiss="alert">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    {% else %}
+    <div class="alert alert-success alter-dismissable fade show" role="alert">
+      {{ message }}
+      <button type="button" class="close" data-dismiss="alert">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    {% endif %} {% endfor %} {% endif %} {% endwith %}
+    
+    <div class="container">{% block content %} {% endblock %}</div>
+
+	<!-- Footer -->
+<footer class="footer bg-black text-center text-white">
+	<!-- Grid container -->
+	
+	  <!-- Section: Form -->
+	  <section class="">
+		  <!--Grid row-->
+		  <div class="row d-flex justify-content-center">
+			<!--Grid column-->
+			<div class="col-auto">
+			  <p class="pt-2">
+				<strong>Sign up for our newsletter</strong>
+			  </p>
+			</div>
+			<!--Grid column-->
+  
+			<!--Grid column-->
+			<div class="col-md-5 col-12">
+			  <!-- Email input -->
+			  <form method="POST" action="new_subscriper">
+			  <div class="form-outline form-white mb-4">
+				<input type="email" id="subscripe_email" name="subscripe_email"  placeholder="Put in mail to stay up to date" class="form-control" />
+			  </div>
+			</form>
+			</div>
+		  </div>
+		  <!--Grid row-->
+	  </section>
+	  <!-- Section: Form -->
+  
+	  <!-- Section: Text -->
+	  <section class="mb-4 under-text">
+		<p>
+			This website, which you can see here, is part of a project to explore how automated meta-tagging
+			 can speed up work steps within e-commerce.
+			 If you want to stay up to date, just leave your email address and you will get more information!
+		</p>
+	  </section>
+	  <!-- Section: Text -->
+  
+	  <!-- Section: Links -->
+	  <section class="">
+		<!--Grid row-->
+		<div class="row">
+		  <!--Grid column-->
+		  <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+			<h5 class="text-uppercase">Contact</h5>
+  
+			<ul class="list-unstyled mb-0">
+			  <li>
+				<a href="#!" class="text-white">mariovonbassen@gmail.com</a>
+			  </li>
+			
+			</ul>
+		  </div>
+		  <!--Grid column-->
+  
+		  <!--Grid column-->
+		  <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+			<h5 class="text-uppercase">DSGVO</h5>
+  
+			<ul class="list-unstyled mb-0">
+			  <li>
+				<a href="#!" class="text-white"></a>
+			  </li>
+			</ul>
+		  </div>
+		  <!--Grid column-->
+  
+		  <!--Grid column-->
+		  <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+			<h5 class="text-uppercase"><a href="https://github.com/Mvb-DL" class="text-white">GitHub</a></h5>
+		  </div>
+		  <!--Grid column-->
+
+		  <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+			<h5 class="text-uppercase">CGI</h5>
+		  </div>
+
+		  <!--Grid column-->
+		</div>
+		<!--Grid row-->
+	  </section>
+	  <!-- Section: Links -->
+	</div>
+	<!-- Grid container -->
+  
+	<!-- Copyright -->
+	<div class="text-center p-3">
+	  © 2020 Copyright:
+	  <a class="text-white" href="">Mario von Bassen</a>
+	</div>
+	<!-- Copyright -->
+  </footer>
+  <!-- Footer -->
+
+  	<script
+  	src="https://code.jquery.com/jquery-3.6.1.js"
+  	integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI="
+  	crossorigin="anonymous"></script>
+
+    <script
+      src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+      integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+      crossorigin="anonymous"
+    ></script>
+
+    <script
+      type="text/javascript"
+      src="{{ url_for('static', filename='js/index.js') }}"
+    ></script>
+
+  </body>
+</html>

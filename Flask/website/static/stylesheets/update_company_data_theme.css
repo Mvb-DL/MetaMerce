@@ -1,0 +1,17 @@
+:root{
+    --black: #000000;
+    --white: #ffffff;
+    --yellow: #fed136;
+    --background-color: #040f32;
+}
+
+
+body{
+    background-color: var(--background-color);
+    color:var(--white)
+}
+
+#change-button{
+    background-color: var(--yellow);
+    border: 1px var(--yellow) solid;
+  }

@@ -1,0 +1,125 @@
+{% extends "base.html" %} {% block title %}Update Company{% endblock %}
+
+{% block content%}
+
+<head>
+    <link id="theme-style" rel="stylesheet" href="{{ url_for('static', filename='/stylesheets/update_company_data_theme.css') }}" />
+  </head>
+
+{% if user.is_authenticated  %}
+<section class="update-section">
+    <form method="POST" action="/update_company_data">
+      
+    <h3 text-align="center">Update Your Company</h3>
+
+    <div class="form-row">
+
+      <div class="form-group col-md-4">
+
+          {{ form.csrf_token }}
+              
+          {{ form.company_name.label(
+              class="form-label"
+          ) }}
+    
+          {{ form.company_name(
+              type="text",
+              class="form-control",
+              id="company_name",
+              placeholder="Enter Company Name"
+          ) }}
+
+        </div>
+
+      <div class="form-group col-md-4">
+
+        {{ form.company_type.label(
+          class="form-label"
+        ) }}
+
+          {{ form.company_type(
+            type="text",
+            class="form-control",
+            id="company_type",
+            placeholder="Enter Company Type"
+        ) }}
+      </div>
+    </div>
+
+    <div class="form-row">
+
+          <div class="form-group col-md-4">
+
+            {{ form.company_website_name.label(
+              class="form-label"
+            ) }}
+
+            {{ form.company_website_name(
+              type="text",
+              class="form-control",
+              id="company_website_name",
+              placeholder="Enter Company Website Name"
+          ) }}
+        </div>
+
+      <div class="form-group col-md-4">
+
+        {{ form.company_url.label(
+          class="form-label"
+        ) }}
+
+        {{ form.company_url(
+          type="text",
+          class="form-control",
+          id="company_url",
+          placeholder="Enter Company URL"
+      ) }}
+    </div>
+
+  </div>
+
+  <div class="form-row">
+
+    <div class="form-group col-md-4">
+
+      {{ form.company_selling_category.label(
+        class="form-label"
+      ) }}
+
+      {{ form.company_selling_category(
+        type="text",
+        class="form-control",
+        id="company_selling_category",
+        placeholder="Enter Company Seeling Category"
+    ) }}
+
+    </div>
+  
+  </div>
+
+      <br>
+
+        <div class="form-row">
+
+          <div class="form-group col-md-4">
+                {{ form.submit(
+                  class="btn btn-primary",
+                  type="submit",
+                  id="change-button"
+                ) }}
+          </div>
+
+          </form>
+        
+            <div class="form-group col-md-4">
+                <div>
+                    <a href="{{ url_for('views.delete_company') }}", onclick="return confirm('Are you sure you want to delete your company?');">Delete Company</a>
+                  </div>
+              </div>
+
+        </div>
+
+  </section>
+{% endif %}      
+{% endblock %}
+  

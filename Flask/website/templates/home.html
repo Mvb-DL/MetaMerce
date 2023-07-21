@@ -1,0 +1,554 @@
+{% extends "base.html" %} {% block title %}Home{% endblock %} 
+{% block content %}
+
+<head>
+
+  <link id="theme-style" rel="stylesheet"  href="{{ url_for('static', filename='/stylesheets/home_theme.css') }}" />
+
+  <script src="https://code.highcharts.com/highcharts.js"></script>
+  <script src="https://code.highcharts.com/highcharts-3d.js"></script>
+  <script src="https://code.highcharts.com/modules/exporting.js"></script>
+  <script src="https://code.highcharts.com/modules/export-data.js"></script>
+  <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+  <script src='http://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.js'></script>
+
+  <script 
+      src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"
+      integrity="sha512-q/dWJ3kcmjBLU4Qc47E4A9kTB4m3wuTY7vkFJDTZKjTs8jhyGQnaUrxa0Ytd0ssMZhbNua9hE+E7Qv1j+DyZwA=="
+      crossorigin="anonymous"></script>
+
+<script type='text/javascript'>
+
+function openManuelInput() {
+
+  document.getElementById("hide_on_load").style.filter= "blur(3px)";
+
+  var overlay = $('<div id="overlay"></div>');
+
+  overlay.show();
+  overlay.appendTo(document.body);
+
+  $('.popup').show();
+  $('.close').click(function() {
+      $('.popup').hide();
+      overlay.appendTo(document.body).remove();
+      document.getElementById("hide_on_load").style.filter= "blur(0px)";
+      return false;
+  });
+
+  $('.x').click(function() {
+      $('.popup').hide();
+      overlay.appendTo(document.body).remove();
+      document.getElementById("hide_on_load").style.filter= "blur(0px)";
+      return false;
+  });
+
+};
+
+</script>
+
+</head>
+
+<body class="upload_container">
+
+<div class="loader" id="loader">
+  <div class="inner one"></div>
+  <div class="inner two"></div>
+  <div class="inner three"></div>
+</div>
+
+<div class='popup'>
+  <div class='manual_input'>
+
+    <div class="form-row">
+      <h1>Manual Input</h1>
+        <div class="form-group col-md-8">
+          <a class='close'>Close</a>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group col-md-12">
+        <label for="title">Site Title</label>
+        <input
+          type="text"
+          class="form-control"
+          id="title"
+          name="title"
+          placeholder="Enter product title"
+          required
+        />
+      </div>
+      <div class="form-group col-md-6">
+        <label for="description">Site Description</label>
+        <textarea id="description" name="description" rows="4" cols="40" required>
+        </textarea>
+      </div>
+
+      <div class="form-group col-md-6"></div>
+
+      <div class="form-group col-md-4">
+        <label for="low_price">Lowest Price</label>
+        <input
+          type="text"
+          class="form-control"
+          id="low_price"
+          name="low_price"
+          placeholder="Enter lowest price"
+        />
+      </div>
+      <div class="form-group col-md-4">
+        <label for="high_price">Highest Price</label>
+        <input
+        type="text"
+        class="form-control"
+        id="high_price"
+        name="high_price"
+        placeholder="Enter highest price"
+          />
+          </div>
+
+        <div class="form-group col-md-4">
+            <label for="currencies">Currencies</label>
+            <select class="custom-select" id="currencies" required>
+              <option selected>Choose...</option>
+              <option value="€">EUR</option>
+              <option value="€">GBP</option>
+              <option value="$">USD</option>
+            </select>
+      </div>
+
+      <div class="form-group col-md-12">
+        <label for="categories">Categories</label>
+        <select class="custom-select" id="categories" required>
+          <option selected>Choose...</option>
+          <option value="Automotive">Automotive</option>
+          <option value="Clothing">Clothing</option>
+          <option value="Electronics">Electronics</option>
+        </select>
+      </div>
+
+      <div class="form-group col-md-6">
+        <label for="brand">Brand</label>
+        <input
+        type="text"
+        class="form-control"
+        id="brand"
+        name="brand"
+        placeholder="Enter your Brand"
+        required
+            />
+      </div>
+
+      <div class="form-group col-md-6">
+        <label for="country">Country</label>
+        <input
+        type="text"
+        class="form-control"
+        id="country"
+        name="country"
+        placeholder="Enter the country"
+            />
+      </div>
+
+      <div class="row">
+
+          <button type="submit" id="pop_up_button" class="btn btn-primary" onclick="add_manual_product_input()">Transform to Metadata</button>
+
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div id="manual_input_code">
+  <div class='manual_code'>
+
+    <blockquote>
+      <pre>
+          <code>
+      {
+          "<span contentEditable="true">@context</span>": "<span contentEditable="true">https://www.schema.org</span>",
+          "<span contentEditable="true">@type</span>": "<span contentEditable="true">product</span>",
+          "<span contentEditable="true">brand</span>": "<span id="manual_brand" contentEditable="true"></span>",
+          "<span contentEditable="true">logo</span>": "<span contentEditable="true">http://www.example.com/logo.png</span>",
+          "<span contentEditable="true">name</span>": "<span id="manual_title" contentEditable="true"></span>",
+          "<span contentEditable="true">category</span>": "<span id="manual_category" contentEditable="true"></span>",
+          "<span contentEditable="true">image</span>": "",<span></span>
+          "<span contentEditable="true">description</span>": "<span id="manual_description" contentEditable="true"></span>",
+          "<span contentEditable="true">offers</span>": { <span></span>
+          "<span contentEditable="true">@type</span>": "<span contentEditable="true">Offer</span>",
+          "<span contentEditable="true">priceCurrency</span>": "<span id="manual_currency" contentEditable="true"></span>", 
+          "<span contentEditable="true">highPrice</span>": "<span id="manual_high_price" contentEditable="true"></span>",
+          "<span contentEditable="true">lowPrice</span>": "<span id="manual_low_price" contentEditable="true"></span>",
+          "<span contentEditable="true">priceValidUntil</span>": "", <span></span>
+          "<span contentEditable="true">itemCondition</span>": "", <span></span>
+          "<span contentEditable="true">countryOfOrigin</span>": "", <span id="manual_country" contentEditable="true"></span>
+          "<span contentEditable="true">availability</span>": "<span contentEditable="true">http://schema.org/InStock</span>",
+          
+          "<span contentEditable="true">seller</span>": {<span></span>
+          "<span contentEditable="true">@type</span>": "<span contentEditable="true"></span>",
+          "<span contentEditable="true">name</span>": "<span contentEditable="true"></span>" }
+          }
+      }         
+          </code>
+      </pre>
+   </blockquote>
+
+   <div class="row">
+    <button id="close_add_manual_code" onclick="close_pop_up()">close</button>
+   </div>
+
+  </div>
+</div>
+
+
+<div id="hide_on_load">
+{% if user.is_authenticated  %}
+
+<h1 text-align="center">Upload Dashboard</h1>
+
+<div class="container">
+
+  <h3 id="subheader">Hey {{user.first_name}}</h3>
+
+  <div class="row tab">
+
+    <div class="col-md-6">
+
+        <button class="tablinks image_upload_button" onclick="openTab(event, 'display_image_upload')" id="defaultOpen">Image-Upload</button>
+
+        <button class="tablinks scrape_website_button" onclick="openTab(event, 'display_scrape_website')">Scrape-Website</button>
+
+        <button class="tablinks manual_input_button" onclick="openManuelInput()">Manual Input</button>
+
+        <div class="pt-5">
+
+        <section class="tabcontent" id="display_image_upload">
+
+          <h5 class="text-left">Upload your image</h5>
+
+          <div class="row">
+
+            <div class="col-md-12 mb-5">
+  
+              <form action="/upload_file" method="POST" enctype="multipart/form-data">
+
+                <div class="drag_and_drop">
+              
+                  <input type="file" id="file" name="file" accept="image/*" multiple>
+                  <p id="selected_files">Drag your files here or click in this area.</p>
+
+                </div>
+              
+                <button type="submit" class="btn btn-primary mt-5" value="upload" id="upload-image-button2" onclick="showLoader()">Upload</button>
+
+            </form>
+
+            </div>
+
+          </div>
+  
+        </section>
+  
+  
+        <section class="tabcontent" id="display_scrape_website">
+
+          <h5>Scrape your Website</h5>
+            <form method="POST" action="/html_scraper">
+              <div class="form-group">
+                <label for="html_scraper_input">Put your webshop Url here</label>
+                <input type="url" class="form-control col-md-8" id="html_scraper_input" name="html_scraper_input" placeholder="Enter url">
+              </div>
+              <button type="submit" class="btn btn-primary">Start Scraping</button>
+            </form>
+
+        </section>
+  
+        <section class="show-text">
+          {% for html in preprocessed_text %}
+        
+            {{html}}
+        
+          {% endfor %}
+        </section>
+  
+  
+        <section class="tabcontent" id="display_manual_input">
+  
+        
+          <ul class="list-group list-group-flush" id="uploads">
+            {% for upload in user.uploads %}
+            <li class="upload-text list-group-item">
+              {{ upload.data }}
+              <button type="button" class="close" onClick="deleteUpload({{ upload.id }})">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </li>
+            {% endfor %}
+          </ul>
+  
+        </section>
+
+      </div>
+
+    </div>
+
+    <div class="col-md-6 first_box rounded highchart">
+
+        <figure class="highcharts-figure">
+          <div id="container"></div>
+        </figure>
+    
+    </div>
+      
+  
+  <div>
+
+  <div class="row company_profile pt-5">
+
+    <div class="col-md-12 company_cards">
+
+      <h1 class="text-center">Your Company Profiles</h1>
+
+      <div class="row mt-5">
+
+        <div class="col-12" id="company_card_one">
+          <h3>Company Card one</h3>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  </div>
+</body>
+
+<script>
+//show tabs
+document.getElementById("defaultOpen").click();
+
+function openTab(evt, cityName) {
+    var i, tabcontent, tablinks;
+    tabcontent = document.getElementsByClassName("tabcontent");
+    for (i = 0; i < tabcontent.length; i++) {
+        tabcontent[i].style.display = "none";
+    }
+    tablinks = document.getElementsByClassName("tablinks");
+    for (i = 0; i < tablinks.length; i++) {
+        tablinks[i].className = tablinks[i].className.replace(" active", "");
+    }
+    document.getElementById(cityName).style.display = "block";
+    evt.currentTarget.className += " active";
+}
+</script>
+
+<script>
+// shows how many files are selected in the selection field
+$(document).ready(function() {
+    $('form input').change(function() {
+        $('#selected_files').text(this.files.length + " file(s) selected");
+    });
+});
+</script>
+
+
+<script>
+//show loading screen
+function showLoader() {
+
+  var loader = document.getElementById('loader');
+
+  loader.style.visibility = 'visible'
+
+  var hide_object = document.getElementById('hide_on_load');
+
+  hide_object.style.visibility = 'hidden'
+};
+</script>
+
+
+<script>
+//the user can add also some meta tags by himself
+//because of the websocket it gets added without reloading the whole page
+function add_manual_product_input() {
+
+$(".popup").hide();
+
+namespace = '/add_manual_product_input';
+var socket = io(namespace);
+
+var title = document.getElementById("title").value;
+var description = document.getElementById("description").value;
+var brand = document.getElementById("brand").value;
+var low_price = document.getElementById("low_price").value;
+var high_price = document.getElementById("high_price").value;
+var country = document.getElementById("country").value;
+
+var select_currency = document.getElementById('inputGroupSelect01');
+var currency = select_currency.options[select_currency.selectedIndex].value;
+
+var select_categories = document.getElementById('inputGroupSelect02');
+var category = select_categories.options[select_categories.selectedIndex].value;
+
+socket.on('connect', function() {
+    socket.emit('my_event_5', {
+        title: title,
+        description: description,
+        brand: brand,
+        low_price: low_price,
+        high_price: high_price,
+        currency: currency,
+        country: country,
+        category: category
+    });
+});
+
+var manual_input_code = document.getElementById('manual_input_code');
+
+manual_input_code.style.visibility = 'visible';
+
+socket.on('manual_title', function(msg) {
+    document.getElementById("manual_title").innerHTML = msg;
+});
+
+socket.on('manual_description', function(msg) {
+    document.getElementById("manual_description").innerHTML = msg;
+});
+
+socket.on('manual_brand', function(msg) {
+    document.getElementById("manual_brand").innerHTML = msg;
+});
+
+socket.on("manual_low_price", function(msg) {
+    document.getElementById("manual_low_price").innerHTML = msg;
+});
+
+socket.on("manual_high_price", function(msg) {
+    document.getElementById("manual_high_price").innerHTML = msg;
+});
+
+socket.on("manual_currency", function(msg) {
+    document.getElementById("manual_currency").innerHTML = msg;
+});
+
+socket.on("manual_country", function(msg) {
+    document.getElementById("manual_country").innerHTML = msg;
+});
+
+socket.on("manual_category", function(msg) {
+    document.getElementById("manual_category").innerHTML = msg;
+});
+
+socket.on("user_categories", function(msg) {
+    var user_categories = msg;
+});
+
+};
+
+</script>
+
+<script>
+//Code to copy the code
+const copyButtonLabel = "Copy Code";
+
+let blocks = document.querySelectorAll("pre");
+
+blocks.forEach((block) => {
+
+    if (navigator.clipboard) {
+        let button = document.createElement('button');
+        button.classList.add('copy_code_button');
+        button.innerText = copyButtonLabel;
+        button.addEventListener("click", copyCode);
+        block.appendChild(button);
+    }
+});
+
+async function copyCode(event) {
+    const button = event.srcElement;
+    const pre = button.parentElement;
+    let code = pre.querySelector("code");
+
+    let text = code.innerText;
+
+    await navigator.clipboard.writeText(text);
+
+};
+
+</script>
+
+<script>
+//function to close the pop up window for the manual input
+function close_pop_up(){
+
+  document.getElementById("hide_on_load").style.filter= "blur(0px)";
+
+  var manual_input_code = document.getElementById('manual_input_code');
+
+  manual_input_code.style.visibility = 'hidden'; 
+};
+
+</script>
+
+<script>
+
+//shows the diagram how many products of which category were uploaded
+var user_categories = {{user_categories|tojson}};
+
+var counting_products = {{counting_products|tojson}};
+
+
+Highcharts.chart('container', {
+  chart: {
+    type: 'column',
+    backgroundColor: "#fff",
+    options3d: {
+      enabled: true,
+      alpha: 10,
+      beta: 25,
+      depth: 70
+    }
+  },
+  title: {
+    text: 'Uploaded Products'
+  },
+  subtitle: {
+    text: ""
+  },
+  plotOptions: {
+    column: {
+      depth: 25
+    }
+  },
+  
+  xAxis: {
+    categories: user_categories,
+    labels: {
+      skew3d: true,
+      style: {
+        fontSize: '16px',
+      }
+    }
+  },
+  yAxis: {
+    title: {
+      text: 'Products',
+      margin: 20
+    }
+  },
+  tooltip: {
+    valueSuffix: ''
+  },
+  series: [{
+    name: 'Number Products',
+    data: counting_products
+  }]
+});
+</script>
+
+
+{% endif %}
+{% endblock %}

@@ -1,0 +1,192 @@
+body {
+  background-color: #040f32;
+  color: #fff;
+  font-family: "Gt walsheim", sans-serif;
+}
+
+::-moz-placeholder {
+  /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: #fff;
+  opacity: 1;
+  text-align: center;
+}
+
+:-ms-input-placeholder {
+  /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: #fff;
+  opacity: 1;
+  text-align: center;
+}
+
+::placeholder {
+  /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: #fff;
+  opacity: 1;
+  text-align: center;
+}
+
+:-ms-input-placeholder {
+  /* Internet Explorer 10-11 */
+  color: #fff;
+  text-align: center;
+}
+
+input:focus::-moz-placeholder {
+  color: transparent;
+}
+
+input:focus:-ms-input-placeholder {
+  color: transparent;
+}
+
+input:focus::placeholder {
+  color: transparent;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  outline: none;
+}
+
+#account_input_field {
+  border: none;
+  background-color: #000;
+  color: #fff;
+  cursor: pointer;
+}
+
+.table {
+  margin-top: 10%;
+}
+
+.footer {
+  margin-top: 20%;
+}
+
+.user_profile_card {
+  cursor: pointer;
+}
+
+.company_profile_card {
+  padding: 3%;
+  cursor: pointer;
+}
+
+.user_card {
+  color: #fff;
+  width: 100%;
+  border-radius: 10px;
+  background: linear-gradient(145deg, #000);
+  box-shadow: 0 2px 20px #c125ff;
+}
+
+.company_card {
+  color: #fff;
+  width: 50%;
+  border-radius: 10px;
+  background: linear-gradient(145deg, #000);
+  box-shadow: 0 2px 20px #fed136;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+h6 {
+  font-size: smaller;
+}
+
+.num {
+  color: #fff;
+}
+
+.line {
+  color: #fff;
+}
+
+.profile_button {
+  color: #fff;
+  padding: 5px;
+  border: none;
+  outline: 0;
+  border-radius: 50px;
+  background: #040f32;
+  box-shadow: 0 2px 20px #c125ff;
+}
+
+.company_button {
+  color: #fff;
+  padding: 5px;
+  border: none;
+  outline: 0;
+  border-radius: 50px;
+  background: #040f32;
+  box-shadow: 0 2px 20px #fed136;
+}
+
+.parent {
+  margin-top: 7%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.parent button {
+  color: white;
+  border: none;
+  height: 100%;
+  width: 160%;
+  transition: all 0.2s ease;
+}
+
+.parent button:active {
+  background-color: #48abe0;
+  transform: translateY(2px);
+}
+
+.round-6 {
+  border-radius: 100%;
+  font-weight: 600;
+  font-size: 2em;
+  box-shadow: 5px 5px 30px #fed136, -5px -5px 30px #fed136;
+  background-color: #fed136;
+}
+
+.delete_company {
+  color: #fed136;
+  width: 20%;
+  height: 10%;
+  background-color: #040f32;
+  font-size: 1em;
+  border: none;
+  margin-left: 85%;
+  margin-top: -8%;
+}
+
+.delete_company:hover {
+  background-color: #fed136;
+}
+
+@media (max-width: 576px) {
+  .company_card {
+    margin-top: 15%;
+    color: #fff;
+    width: 100%;
+    height: 30%;
+    border-radius: 10px;
+    background: linear-gradient(145deg, #000);
+    box-shadow: 0 2px 20px #fed136;
+    margin-left: auto;
+    margin-right: auto;
+    border: none;
+  }
+  .parent button {
+    color: white;
+    border: none;
+    height: 120%;
+    width: 180%;
+    transition: all 0.2s ease;
+  }
+  .parent button:active {
+    background-color: #48abe0;
+    transform: translateY(2px);
+  }
+}/*# sourceMappingURL=account_theme.css.map */

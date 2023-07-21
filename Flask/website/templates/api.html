@@ -1,0 +1,88 @@
+{% extends "base.html" %} {% block title %}API{% endblock %}
+
+{% block content%}
+
+<head>
+    <link id="theme-style" rel="stylesheet"  href="{{ url_for('static', filename='/stylesheets/api_theme.css') }}" />
+</head>
+<body>
+{% if user.is_authenticated  %}
+<div class="container">
+    <div class="row">
+
+        <div>
+            <h1>Tutorial using the API</h1>
+        </div>
+
+    </div>
+<div>
+
+
+<div class="container post_pages_table">
+
+      <div class="col-md-12">
+        <div class="row">
+
+        <div class="col-md-6">
+          <table class="table table-dark table_products">
+            <thead>
+              <tr>
+                <th scope="col">Product Title</th>
+                <th scope="col">Product ID</th>
+                <th scope="col">Product Category</th>
+                <th scope="col">Product Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <form action="/API" method="post">
+
+                {% for product in user_products %}
+                <tr>
+                    <td>{{product.title}}</td>
+                    <td>{{product.id}}</td>
+                    <td>{{product.category}}</td>
+                    <td></td>
+                      <td><input type="checkbox" value="{{product.id}}" name="product_id">Select</input></td>
+
+                </tr>
+                {% endfor %}
+
+            </tbody>
+        </table>
+        </div>
+
+        <div class="col-md-6">
+        <table class="table table-dark">
+            <thead>
+              <tr>
+                <th scope="col">Site Title</th>
+                <th scope="col">Site ID</th>
+                <th scope="col">Last Modified</th>
+                <th scope=""col>Type</th>
+              </tr>
+            </thead>
+            <tbody>
+                {% for list in posts_and_pages %}
+                <tr>
+                    <td>{{list[2]}}</td>
+                    <td>{{list[0]}}</td>
+                    <td>{{list[1]}}</td>
+                    <td>{{list[3]}}</td>
+
+                      <td><button class="btn btn-primary" value="{{list[0]}} {{list[3]}}" name="wp_id">Add</button></td>
+                    
+                </tr>
+                {% endfor %}
+              </form>
+            </tbody>
+        </table>
+      </div>
+    </div>
+    </div>
+
+</div>    
+{% endif %}
+</body>
+
+
+{% endblock %}

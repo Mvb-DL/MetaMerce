@@ -1,0 +1,333 @@
+:root {
+  --black: #000000;
+  --white: #ffffff;
+  --yellow: #fed136;
+  --purple: #c125ff;
+  --col-1: #9a40a9;
+  --col-2: #9a40a9;
+  --bg-1: #0e182d;
+  --highlighted: #ff5722;
+  --light_purple: #9a40a9;
+  --dark_blue: #040f32;
+}
+
+body {
+  background-color: var(--dark_blue);
+  color: var(--white);
+  display: grid;
+  font-family: "Gt walsheim", sans-serif;
+}
+
+
+.card {
+  color: #fff;
+  border-radius: 10px;
+  background: linear-gradient(145deg, var(--black));
+  box-shadow: 5px 5px 30px #913ca0, -5px -5px 30px #c552d8;
+  border: none;
+  width: fit-content;
+  margin-left: -20%;
+}
+
+.num {
+  color: var(--white);
+}
+
+.line {
+  color: var(--white);
+}
+
+.neo-button:active {
+  border-radius: 50%;
+  background: #ab47bc;
+  box-shadow: 28px 28px 57px #933da2, -28px -28px 57px #c351d6;
+}
+
+.profile_button {
+  color: var(--white);
+  padding: 10px;
+  border: none;
+  outline: 0 !important;
+  border-radius: 50px;
+  background: var(--dark_blue);
+  box-shadow: 0 2px 20px var(--purple);
+}
+
+.assortment-tree {
+  margin-left: 15%;
+  width: auto;
+}
+
+.tree-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: auto;
+  padding-top: 2em;
+  margin-right: auto;
+  margin-left: auto;
+  cursor: pointer;
+  max-width: fit-content;
+}
+
+.tree-container > h1 {
+  color: var(--white);
+  font-weight: 600;
+}
+
+#company_name {
+  font-size: 1.1em;
+  color: var(--white);
+  border: solid var(--white) 2px;
+}
+
+#company_name:hover {
+  border: solid var(--purple) 2px;
+}
+
+#type {
+  font-size: 0.6em;
+  color: var(--white);
+  border: solid var(--purple) 2px;
+  margin-bottom: 2%;
+  margin-top: 2%;
+}
+
+.tree,
+.tree ul,
+.tree li {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  position: relative;
+}
+
+.tree {
+  margin: 0 0 1em;
+  text-align: center;
+}
+
+.tree,
+.tree ul {
+  display: table;
+}
+
+.tree ul {
+  width: 100%;
+}
+
+.tree li {
+  display: table-cell;
+  padding: 1em 0;
+  vertical-align: top;
+}
+
+.tree li:before {
+  outline: solid 1px var(--col-2);
+  content: "";
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+  direction: rtl;
+}
+
+.tree li:hover:before {
+  outline: solid 1px var(--col-1);
+}
+
+.tree li:first-child:before {
+  left: 50%;
+}
+
+.tree li:last-child:before {
+  right: 50%;
+}
+
+.tree code,
+.tree span {
+  border: solid 0.1em var(--col-1);
+  border-radius: 1em;
+  display: inline-block;
+  margin: 0 0.5em 0.5em;
+  padding: 0.5em 0.8em;
+  position: relative;
+  background-color: var(--bg-1);
+  transition: all 0.2s ease;
+  color: var(--col-1);
+  font-size: 0.6em;
+}
+
+.tree span:hover {
+  background-color: var(--col-1);
+  color: var(--bg-1);
+}
+
+.tree li:hover > span {
+  background-color: var(--col-1);
+  color: var(--bg-1);
+}
+
+.tree span:hover::after,
+.tree li:hover > span::after {
+  box-shadow: 0 0 5px 8px var(--col-1) inset;
+}
+
+.tree ul:before,
+.tree code:before,
+.tree span:before {
+  outline: solid 1px var(--col-2);
+  content: "";
+  height: 0.5em;
+  left: 50%;
+  position: absolute;
+}
+
+.tree ul:hover:before,
+.tree code:hover:before,
+.tree li:hover > span:before {
+  outline: solid 1px var(--col-1);
+}
+
+.tree span::after {
+  outline: solid 1px var(--col-1);
+  content: "";
+  top: -18px;
+  left: calc(50% - 5px);
+  width: 0.8em;
+  height: 0.8em;
+  background-color: var(--bg-1);
+  border: 1px solid var(--col-1);
+  position: absolute;
+  opacity: 1;
+  border-radius: 100%;
+  transition: all 0.2s ease;
+}
+
+.tree ul:before {
+  top: -0.7em;
+  height: 0.6em;
+}
+
+.tree code:before,
+.tree span:before {
+  top: -0.55em;
+}
+
+.tree > li {
+  margin-top: 0;
+}
+
+.tree > li:before,
+.tree > li:after,
+.tree > li > code:before,
+.tree > li > span:before,
+.tree > li > span:after {
+  outline: none;
+  display: none;
+}
+
+.highlighted:hover {
+  background-color: var(--highlighted) !important;
+}
+
+#electronics span {
+  color: var(--yellow);
+  margin-bottom: 1em;
+  font-weight: 300;
+  border: none;
+  box-shadow: 1px 1px 5px var(--light_purple), -1px -1px 5px var(--light_purple);
+}
+
+.delete_product {
+  border: none;
+  background-color: var(--bg-1);
+  color: var(--white);
+  margin-top: 0%;
+  margin-bottom: 3%;
+}
+
+.delete_product:hover {
+  border: none;
+  background-color: var(--highlighted);
+  color: var(--white);
+}
+
+.form-popup {
+  display: none;
+  z-index: 9;
+  position: absolute;
+  top: -30%;
+  left: 0%;
+  width: 120%;
+  height: 140%;
+  background-color: var(--white);
+  border: var(--light_purple) solid 1px;
+}
+
+.form-popup label{
+  color: var(--black)
+}
+
+.form-popup p {
+  color: var(--black);
+  font-size: 0.7em;
+  margin-bottom: 0px;
+  text-align: left;
+}
+
+.form-popup h6 {
+  text-align: left;
+  color: var(--black);
+  margin-bottom: 0px;
+}
+
+.form-popup button {
+  color: var(--black);
+}
+
+.close_button {
+  border: solid var(--purple) 2px;
+  color: var(--black);
+  border-radius: 5px;
+  background-color: var(--white);
+}
+
+#edit_title {
+  margin-top: 5%;
+}
+
+#category_name {
+  font-size: 0.7em;
+}
+
+#knowledgegraph-alert{
+  text-align: center;
+}
+
+
+@media only screen and (max-width: 628px) {
+
+  .assortment-tree {
+    display: none;
+  }
+
+  #export_knowledge_graph{
+    margin-bottom: 5%;
+  }
+
+
+  
+.card {
+  color: #fff;
+  border-radius: 10px;
+  background: linear-gradient(145deg, var(--black));
+  box-shadow: 5px 5px 30px #913ca0, -5px -5px 30px #c552d8;
+  border: none;
+  width: fit-content;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+}

@@ -1,0 +1,185 @@
+@import "base_variables";
+  
+  body {
+    background-color: $backgroundcolor;
+    color: $white;
+    font-family: "Gt walsheim", sans-serif;
+  }
+  
+  ::placeholder {
+    /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: $white;
+    opacity: 1;
+    text-align: center;
+  }
+  
+  :-ms-input-placeholder {
+    /* Internet Explorer 10-11 */
+    color: $white;
+    text-align: center;
+  }
+  
+  ::-ms-input-placeholder {
+    /* Microsoft Edge */
+    color: $white;
+    text-align: center;
+  }
+  
+  input:focus::placeholder {
+    color: transparent;
+  }
+  
+  input:focus,
+  textarea:focus,
+  select:focus {
+    outline: none;
+  }
+  
+  #account_input_field {
+    border: none;
+    background-color: $black;
+    color: $white;
+    cursor: pointer;
+  }
+  
+  .table {
+    margin-top: 10%;
+  }
+  
+  .footer {
+    margin-top: 20%;
+  }
+  
+  .user_profile_card {
+    cursor: pointer;
+  }
+  
+  .company_profile_card {
+    padding: 3%;
+    cursor: pointer;
+  }
+  
+  .user_card {
+    color: $white;
+    width: 100%;
+    border-radius: 10px;
+    background: linear-gradient(145deg, $black);
+    box-shadow: 0 2px 20px $purple;
+  }
+  
+  .company_card {
+    color: $white;
+    width: 50%;
+    border-radius: 10px;
+    background: linear-gradient(145deg, $black);
+    box-shadow: 0 2px 20px $yellow;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  h6 {
+    font-size: smaller;
+  }
+  
+  .num {
+    color: $white ;
+  }
+  
+  .line {
+    color: $white;
+  }
+  
+  .profile_button {
+    color: $white;
+    padding: 5px;
+    border: none;
+    outline: 0 ;
+    border-radius: 50px;
+    background: $backgroundcolor;
+    box-shadow: 0 2px 20px $purple;
+  }
+  
+  .company_button {
+    color: $white;
+    padding: 5px;
+    border: none;
+    outline: 0 ;
+    border-radius: 50px;
+    background: $backgroundcolor;
+    box-shadow: 0 2px 20px $yellow;
+  }
+  
+  .parent {
+    margin-top: 7%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  .parent button {
+    color: white;
+    border: none;
+    height: 100%;
+    width: 160%;
+    transition: all 0.2s ease;
+  }
+  
+  .parent button:active {
+    background-color: #48abe0;
+    transform: translateY(2px);
+  }
+  
+  .round-6 {
+    border-radius: 100%;
+    font-weight: 600;
+    font-size: 2em;
+    box-shadow: 5px 5px 30px $yellow, -5px -5px 30px $yellow;
+    background-color: $yellow;
+  }
+  
+  .delete_company {
+    color: $yellow;
+    width: 20%;
+    height: 10%;
+    background-color: $backgroundcolor;
+    font-size: 1em;
+    border: none;
+    margin-left: 85%;
+    margin-top: -8%;
+  }
+  
+  .delete_company:hover {
+    background-color: $yellow;
+  }
+  
+
+  @media (max-width: 576px) {
+    
+    .company_card {
+      margin-top: 15%;
+      color: $white;
+      width: 100%;
+      height: 30%;
+      border-radius: 10px;
+      background: linear-gradient(145deg, $black);
+      box-shadow: 0 2px 20px $yellow;
+      margin-left: auto;
+      margin-right: auto;
+      border: none;
+    }
+
+    
+    .parent button {
+      color: white;
+      border: none;
+      height: 120%;
+      width: 180%;
+      transition: all 0.2s ease;
+
+    }
+    
+    .parent button:active {
+      background-color: #48abe0;
+      transform: translateY(2px);
+    }
+
+  }

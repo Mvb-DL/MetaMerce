@@ -1,0 +1,95 @@
+{% extends "base.html" %} {% block title %}Sign Up API{% endblock %}
+
+{% block content%}
+
+<head>
+    <link id="theme-style" rel="stylesheet"  href="{{ url_for('static', filename='/stylesheets/sign_up_api_profile_theme.css') }}" />
+</head>
+<body>
+
+{% if user.is_authenticated  %}
+
+<div class="container mt-5">
+    <div class="row">  
+
+        <div class="col-md-12">
+
+            <section class="signup-section sign_up_card">
+
+              <h3 id="sign_up_header">Sign Up WordPress API</h3>
+            
+
+                  <form method="POST" action="{{ url_for('auth.sign_up_api_profile') }}">
+                  
+                    <div class="form-row">
+                    
+                      <div class="form-group col-md-4">
+                      
+                        {{ form.hidden_tag() }}
+                      
+                        {{ form.wordpress_username.label(
+                            class="form-label"
+                        ) }}
+                        
+                        {{ form.wordpress_username(
+                            type="text",
+                            class="form-control",
+                            id="wordpress_username",
+                            placeholder="Enter WordPress Username"
+                        ) }}
+                      </div>
+                    
+                      <div class="form-group col-md-4">
+                        {{ form.application_password.label(
+                            class="form-label"
+                        ) }}
+                        
+                        {{ form.application_password(
+                            type="text",
+                            class="form-control",
+                            id="application_password",
+                            placeholder="Enter WordPress Application Password"
+                        ) }}
+                      </div>
+                    
+                    </div>
+                  
+                    <div class="form-row">
+                      <div class="form-group col-md-4">
+                        {{ form.application_domain.label(
+                          class="form-label"
+                        ) }}
+                        
+                        {{ form.application_domain(
+                            type="text",
+                            class="form-control",
+                            id="application_domain",
+                            placeholder="Enter WordPress Application Domain"
+                        ) }}
+                      </div>
+                    </div>
+                  
+                    <div class="form-row">
+                      <div class="col-md-4">
+                        {{ form.submit(
+                          class="btn btn-primary",
+                          id="signup-button"
+                        ) }}
+                      </div>
+                      
+                    </div>
+                
+                  </div>
+
+                </form>
+
+            </section>
+            
+          </div>
+
+    </div>
+</div>
+{% endif %}
+</body>    
+
+{% endblock %}

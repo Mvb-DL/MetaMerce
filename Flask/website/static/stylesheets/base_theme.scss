@@ -1,0 +1,136 @@
+@import "base_variables";
+
+  .navbar-nav {
+    margin-left: auto;
+  }
+  
+  #home-button {
+    background-color: $backgroundcolor;
+    color: $yellow;
+    border: solid 2px $white;
+    font-weight: bold;
+  }
+  
+  #login-button {
+    background-color: $backgroundcolor;
+    color: $white;
+    border: solid 2px $yellow;
+    font-weight: bold;
+  }
+  
+  #logo {
+    color: $white;
+  }
+  
+  #logo-normal {
+    margin-top: 1%;
+    color: $white;
+  }
+  
+  #signUp {
+    margin-top: 1%;
+    color: $white;
+  }
+  
+  .section_padding_130 {
+    padding-top: 130px;
+    padding-bottom: 130px;
+  }
+  
+  .footer {
+    width: 75%;
+    margin-left: auto;
+    margin-right: auto;
+    display: table;
+  }
+  
+  .faq_area {
+    position: relative;
+    z-index: 1;
+    background-color: $black;
+  }
+  
+  .faq-accordian {
+    position: relative;
+    z-index: 1;
+  }
+  .faq-accordian .card {
+    position: relative;
+    z-index: 1;
+    margin-bottom: 1.5rem;
+  }
+  .faq-accordian .card:last-child {
+    margin-bottom: 0;
+  }
+  .faq-accordian .card .card-header {
+    background-color: $white;
+    padding: 0;
+    border-bottom-color: $white;
+  }
+  .faq-accordian .card .card-header h6 {
+    cursor: pointer;
+    padding: 1.75rem 2rem;
+    color: $purple;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    -ms-grid-row-align: center;
+    align-items: center;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+  }
+  .faq-accordian .card .card-header h6 span {
+    font-size: 1.5rem;
+  }
+  .faq-accordian .card .card-header h6.collapsed {
+    color: $black;
+  }
+  .faq-accordian .card .card-header h6.collapsed span {
+    -webkit-transform: rotate(-180deg);
+    transform: rotate(-180deg);
+  }
+  .faq-accordian .card .card-body {
+    padding: 1.75rem 2rem;
+    color: $black;
+  }
+  .faq-accordian .card .card-body p:last-child {
+    margin-bottom: 0;
+  }
+  
+  @media only screen and (max-width: 575px) {
+    .support-button p {
+      font-size: 14px;
+    }
+  }
+  
+  .support-button i {
+    color: $purple;
+    font-size: 1.25rem;
+  }
+  @media only screen and (max-width: 575px) {
+    .support-button i {
+      font-size: 1rem;
+    }
+  }
+  
+  .support-button a {
+    text-transform: capitalize;
+    color: #2ecc71;
+  }
+  @media only screen and (max-width: 575px) {
+    .support-button a {
+      font-size: 13px;
+    }
+  }
+  
+  footer {
+    margin-top: 10%;
+  }
+  
+  .under-text {
+    margin-top: 4%;
+  }
+  

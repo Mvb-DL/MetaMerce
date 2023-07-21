@@ -1,0 +1,124 @@
+{% extends "base.html" %} {% block title %}Update User{% endblock %}
+
+{% block content%}
+
+<head>
+    <link id="theme-style" rel="stylesheet"  href="{{ url_for('static', filename='/stylesheets/update_account_theme.css') }}" />
+</head>
+
+<body>
+{% if user.is_authenticated  %}
+<section class="update-section">
+    <form method="post" action="{{ url_for('auth.update_account') }}">
+      
+        <h3 text-align="center">Update Your Account</h3>
+
+            <div class="form-row">
+                <div class="form-group col-md-4">
+                
+              {{ form.csrf_token }}
+                
+              {{ form.first_name.label(
+                  class="form-label"
+              ) }}
+            
+              {{ form.first_name(
+                  type="text",
+                  class="form-control",
+                  id="first_name",
+                  placeholder="Enter Firstname"
+              ) }}
+            
+              </div>
+          
+              <div class="form-group col-md-4">
+              {{ form.last_name.label(
+                  class="form-label"
+              ) }}
+            
+              {{ form.last_name(
+                  type="text",
+                  class="form-control",
+                  id="last_name",
+                  placeholder="Enter Lastname"
+              ) }}
+            </div>
+            </div>
+        
+            <div class="form-row">
+                <div class="form-group col-md-4">
+                
+              {{ form.user_name.label(
+                class="form-label"
+            ) }}
+            
+            {{ form.user_name(
+                type="text",
+                class="form-control",
+                id="user_name",
+                placeholder="Enter new Username"
+            ) }}
+            
+                </div>
+            
+            <div class="form-group col-md-4">
+            
+            {{ form.email.label(
+                class="form-label"
+            ) }}
+            
+            {{ form.email(
+                type="email",
+                class="form-control",
+                id="email",
+                placeholder="Enter new Email"
+            ) }}
+            
+            </div>
+            </div>
+        
+            <div class="form-row">
+                <div class="form-group col-md-4">
+                
+              {{ form.password.label(
+                class="form-label"
+            ) }}
+            
+            {{ form.password(
+                type="password",
+                class="form-control",
+                id="password",
+                placeholder="Enter new Password"
+            ) }}
+            
+                </div>
+            </div>
+
+</div>
+
+      <br>
+
+      <div class="container" id="facts">
+        <div class="form-row">
+          <div class="col-sm d-flex justify-content-left">
+                 {{ form.submit(
+                     class="btn btn-primary",
+                     id="change-button"
+                 ) }}
+            </div>
+    </form>
+
+            <div class="col-sm d-flex justify-content-left">
+                
+                    <a href="{{ url_for('views.delete_account') }}", id="delete_account_link" onclick="return confirm('Are you sure you want to delete your account?');">Delete Account</a>
+                  
+              </div>
+
+        </div>
+    </div>
+      
+</section>
+</body>
+{% endif %}      
+{% endblock %}
+  

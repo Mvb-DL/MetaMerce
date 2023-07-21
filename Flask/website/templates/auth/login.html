@@ -1,0 +1,178 @@
+{% extends "base.html" %} {% block title %}Login{% endblock %}
+
+{% block content%}
+
+<head>
+      <link id="theme-style" rel="stylesheet"  href="{{ url_for('static', filename='/stylesheets/login_theme.css') }}" />
+</head>
+
+    
+<div class="container">
+  <div class="row">
+    
+      <div class="col-md-6">
+        <section class="login-section">
+
+        <form method="POST" action="{{ url_for('auth.login') }}">
+          
+        <h2 id="login_header" text-align="center">Login</h2>
+
+          <div class="login_card p-3 py-4">
+            <div id="coloured-background">
+              <div class="form-group col-md-12">
+
+                {{ login_form.csrf_token }}
+              
+                {{ login_form.email.label(
+                    class="form-label"
+                ) }}
+                {{ login_form.email(
+                    type="email",
+                    class="form-control",
+                    id="email",
+                    placeholder="Enter email"
+                ) }}
+                
+              </div>
+            
+              <div class="form-group col-md-12">
+                
+                {{ login_form.password.label(
+                    class="form-label"
+                ) }}
+                
+                {{ login_form.password(
+                    type="password",
+                    class="form-control",
+                    id="password",
+                    placeholder="Enter password"
+                ) }}
+              </div>
+            
+                <br>
+            
+                {{ login_form.submit(
+                    class="btn btn-primary",
+                    id="login-button"
+                ) }}
+
+                
+            </div>
+          </div>
+        </form>
+    </section>
+  </div>
+
+      <div class="col-md-6">
+        <section class="signup-section ">
+          <h3 id="sign_up_header">Sign Up</h3>
+          <div class="sign_up_card p-3 py-4">
+
+          <form method="POST" action="{{ url_for('auth.sign_up') }}">
+            <div class="form-row">
+
+            <div class="form-group col-md-6">
+
+              {{ form.csrf_token }}
+
+              {{ form.first_name.label(
+                class="form-label"
+              ) }}
+
+              {{ form.first_name(
+                  type="text",
+                  class="form-control",
+                  id="first_name",
+                  placeholder="Enter Firstname"
+              ) }}
+            </div>
+
+            <div class="form-group col-md-6">
+
+              {{ form.last_name.label(
+                class="form-label"
+              ) }}
+              
+              {{ form.last_name(
+                  type="text",
+                  class="form-control",
+                  id="last_name",
+                  placeholder="Enter Lastname"
+              ) }}
+
+            </div>
+
+            <div class="form-group col-md-12">
+
+              {{ form.email.label(
+                class="form-label"
+              ) }}
+              
+              {{ form.email(
+                  type="email",
+                  class="form-control",
+                  id="email",
+                  placeholder="Enter Email"
+              ) }}
+
+            </div>
+          
+            <div class="form-group col-md-12">
+
+              {{ form.user_name.label(
+                class="form-label"
+              ) }}
+              
+              {{ form.user_name(
+                  type="text",
+                  class="form-control",
+                  id="user_name",
+                  placeholder="Enter Username"
+              ) }}
+
+            </div>
+            <div class="form-group col-md-6">
+
+              {{ form.password_one.label(
+                class="form-label"
+              ) }}
+              
+              {{ form.password_one(
+                  type="password",
+                  class="form-control",
+                  id="password_one",
+                  placeholder="Enter Password"
+              ) }}
+
+            </div>
+            <div class="form-group col-md-6">
+
+              {{ form.password_two.label(
+                class="form-label"
+              ) }}
+              
+              {{ form.password_two(
+                  type="password",
+                  class="form-control",
+                  id="password_two",
+                  placeholder="Repeat Password"
+              ) }}
+
+            </div>
+            <br>
+
+            {{ form.submit(
+              class="btn btn-primary",
+              id="change-button"
+            ) }}
+
+          </div>
+          </form>
+        </div>
+      </section>
+        
+      </div>
+    </div>
+  </div>
+
+  {% endblock %}

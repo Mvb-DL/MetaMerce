@@ -1,0 +1,115 @@
+{% extends "base.html" %} {% block title %}Account{% endblock %}
+
+{% block content%}
+
+<head>
+    <link id="theme-style" rel="stylesheet"  href="{{ url_for('static', filename='/stylesheets/account_theme.css') }}" />
+</head>
+
+{% if user.is_authenticated  %}
+
+  <h1>Account</h1>
+
+  <div class="container">
+    <div class="row">
+  
+      <div class="col-md-6">
+
+        {% for user in users %}
+
+        <section class="user_profile_card mt-5">
+          <div class="container d-flex justify-content-center">
+            <div class="user_card p-3 py-4">
+                <div class="text-center"> 
+                  <h1 class="mt-2">Account</h1>
+                  <h3 class="mt-2">{{user.first_name}} {{user.last_name}}</h3>
+                  <span class="mt-2">{{user.email}}</span>
+                  <span class="mt-2">{{user.user_name}}</span>
+
+                  <div class="row mt-3 mb-3">
+                  
+                    <div class="col-md-6">
+                    <h6>Products</h6>
+                    <span class="num">{{number_products}}</span>
+                    </div>
+                    <div class="col-md-6">
+                    <h5>Websites</h5>
+                    <span class="num"></span>
+                    </div>
+                  
+                  </div>
+
+                  <hr class="line">
+                  <form method="POST" action="/update_account">
+                    
+                  <div class="profile mt-5">
+                    <button type="submit" class="profile_button px-5">Change Account</button>
+                  </form>
+                  </div>
+
+              </div>
+            </div>
+          </div>
+          
+        </section>
+        {% endfor %}
+        
+      </div>
+
+    <div class="col-md-6">
+
+    {% for name in user_company %}
+
+      <section class="company_profile_card mt-5">
+        <div class="container d-flex justify-content-center">
+          <div class="company_card p-3 py-4">
+            <button type="button" class="delete_company btn btn-primary" onClick="deleteCompany({{ name.id }})"><i class="fa fa-close"></i></button>
+
+            <div class="text-center"> 
+                  <h3 class="pt-2">{{name.company_name}}</h3>
+            <span class="mt-1 clearfix">{{name.company_type}}</span>
+            
+            <div class="row mb-3">
+            
+              <div class="col-md-6">
+              <h6>Products</h6>
+              <span class="num">{{number_products}}</span>
+              </div>
+              <div class="col-md-6">
+              <h6>Websites</h6>
+              <span class="num"></span>
+              </div>
+            </div>
+            
+            <hr class="line">
+            
+            <small class="mt-4">Shop Description</small>
+              
+             <div class="profile mt-5">
+             
+              <form action="/update_company_data" method="post">
+                <button class="company_button px-5" type="submit">Change Data</button>
+              </form>
+
+             </div>
+               
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {% endfor %}
+
+    <div class="row">
+      <div class="parent">
+        <form method="post" action="/sign_up_company_profile">
+          <button type="submit" class="round-6">&plus;</button>
+        </form>
+      </div>
+    </div>
+    </div>
+
+  </div>
+
+  {% endif %}
+{% endblock %}

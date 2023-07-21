@@ -1,0 +1,269 @@
+body {
+  background-color: #040f32;
+  color: #fff;
+  font-family: "Gt walsheim", sans-serif;
+}
+
+.card {
+  color: #fff;
+  background: linear-gradient(145deg, #000);
+  box-shadow: 5px 5px 30px #c125ff, -5px -5px 10px #c125ff;
+}
+
+.num {
+  color: #fff;
+}
+
+.line {
+  color: #fff;
+}
+
+.neo-button:active {
+  border-radius: 50%;
+  background: #c125ff;
+  box-shadow: 28px 28px 57px #c125ff, -28px -28px 57px #c125ff;
+}
+
+.profile_button {
+  color: #fff;
+  padding: 10px;
+  border: none;
+  outline: 0;
+  border-radius: 50px;
+  background: #040f32;
+  box-shadow: 0 2px 20px #c125ff;
+}
+
+.assortment-tree {
+  margin-left: 15%;
+  width: 100%;
+}
+
+.tree-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 50%;
+  padding-top: 2em;
+  margin-right: auto;
+  margin-left: auto;
+  cursor: pointer;
+  max-width: -webkit-fit-content;
+  max-width: -moz-fit-content;
+  max-width: fit-content;
+}
+
+.tree-container > h1 {
+  color: #fff;
+  font-weight: 600;
+}
+
+#company_name {
+  font-size: 1.1em;
+  color: #fff;
+  border: solid #fff 2px;
+}
+
+#company_name:hover {
+  border: solid #c125ff 2px;
+}
+
+#type {
+  font-size: 0.6em;
+  color: #fff;
+  border: solid #c125ff 2px;
+  margin-bottom: 2%;
+  margin-top: 2%;
+}
+
+.tree,
+.tree ul,
+.tree li {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  position: relative;
+}
+
+.tree {
+  margin: 0 0 1em;
+  text-align: center;
+}
+
+.tree,
+.tree ul {
+  display: table;
+}
+
+.tree ul {
+  width: 100%;
+}
+
+.tree li {
+  display: table-cell;
+  padding: 1em 0;
+  vertical-align: top;
+}
+
+.tree li:before {
+  outline: solid 1px #c125ff;
+  content: "";
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+  direction: rtl;
+}
+
+.tree li:hover:before {
+  outline: solid 1px #c125ff;
+}
+
+.tree li:first-child:before {
+  left: 50%;
+}
+
+.tree li:last-child:before {
+  right: 50%;
+}
+
+.tree code,
+.tree span {
+  border: solid 0.1em #c125ff;
+  border-radius: 1em;
+  display: inline-block;
+  margin: 0 0.5em 0.5em;
+  padding: 0.5em 0.8em;
+  position: relative;
+  background-color: #040f32;
+  transition: all 0.2s ease;
+  color: #c125ff;
+  font-size: 0.6em;
+}
+
+.tree span:hover {
+  background-color: #c125ff;
+  color: #040f32;
+}
+
+.tree li:hover > span {
+  background-color: #c125ff;
+  color: #040f32;
+}
+
+.tree span:hover::after,
+.tree li:hover > span::after {
+  box-shadow: 0 0 5px 8px #c125ff inset;
+}
+
+.tree ul:before,
+.tree code:before,
+.tree span:before {
+  outline: solid 1px #c125ff;
+  content: "";
+  height: 0.5em;
+  left: 50%;
+  position: absolute;
+}
+
+.tree ul:hover:before,
+.tree code:hover:before,
+.tree li:hover > span:before {
+  outline: solid 1px #c125ff;
+}
+
+.tree span::after {
+  outline: solid 1px #c125ff;
+  content: "";
+  top: -18px;
+  left: calc(50% - 5px);
+  width: 0.8em;
+  height: 0.8em;
+  background-color: #040f32;
+  border: 1px solid #c125ff;
+  position: absolute;
+  opacity: 1;
+  border-radius: 100%;
+  transition: all 0.2s ease;
+}
+
+.tree ul:before {
+  top: -0.7em;
+  height: 0.6em;
+}
+
+.tree code:before,
+.tree span:before {
+  top: -0.55em;
+}
+
+.tree > li {
+  margin-top: 0;
+}
+
+.tree > li:before,
+.tree > li:after,
+.tree > li > code:before,
+.tree > li > span:before,
+.tree > li > span:after {
+  outline: none;
+  display: none;
+}
+
+.highlighted:hover {
+  background-color: #c125ff;
+}
+
+#electronics span {
+  color: #fed136;
+  margin-bottom: 1em;
+  font-weight: 300;
+  border: none;
+  box-shadow: 1px 1px 5px #c125ff, -1px -1px 5px #c125ff;
+}
+
+.delete_product {
+  border: none;
+  background-color: #040f32;
+  color: #fff;
+  margin-top: 0%;
+  margin-bottom: 3%;
+}
+
+.delete_product:hover {
+  border: none;
+  background-color: #c125ff;
+  color: #fff;
+}
+
+.form-popup {
+  display: none;
+  z-index: 9;
+  position: absolute;
+  background-color: #fff;
+  border: #c125ff solid 1px;
+}
+
+.form-popup label {
+  color: #000;
+}
+
+.form-popup button {
+  color: #000;
+}
+
+.close_button {
+  border: solid #c125ff 2px;
+  color: #000;
+  border-radius: 5px;
+  background-color: #fff;
+}
+
+#edit_title {
+  margin-top: 5%;
+}
+
+#category_name {
+  font-size: 0.7em;
+}/*# sourceMappingURL=company_theme.css.map */

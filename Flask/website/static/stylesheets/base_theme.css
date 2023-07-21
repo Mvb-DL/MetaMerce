@@ -1,0 +1,136 @@
+.navbar-nav {
+  margin-left: auto;
+}
+
+#home-button {
+  background-color: #040f32;
+  color: #fed136;
+  border: solid 2px #fff;
+  font-weight: bold;
+}
+
+#login-button {
+  background-color: #040f32;
+  color: #fff;
+  border: solid 2px #fed136;
+  font-weight: bold;
+}
+
+#logo {
+  color: #fff;
+}
+
+#logo-normal {
+  margin-top: 1%;
+  color: #fff;
+}
+
+#signUp {
+  margin-top: 1%;
+  color: #fff;
+}
+
+.section_padding_130 {
+  padding-top: 130px;
+  padding-bottom: 130px;
+}
+
+.footer {
+  width: 75%;
+  margin-left: auto;
+  margin-right: auto;
+  display: table;
+}
+
+.faq_area {
+  position: relative;
+  z-index: 1;
+  background-color: #000;
+}
+
+.faq-accordian {
+  position: relative;
+  z-index: 1;
+}
+
+.faq-accordian .card {
+  position: relative;
+  z-index: 1;
+  margin-bottom: 1.5rem;
+}
+
+.faq-accordian .card:last-child {
+  margin-bottom: 0;
+}
+
+.faq-accordian .card .card-header {
+  background-color: #fff;
+  padding: 0;
+  border-bottom-color: #fff;
+}
+
+.faq-accordian .card .card-header h6 {
+  cursor: pointer;
+  padding: 1.75rem 2rem;
+  color: #c125ff;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  -ms-grid-row-align: center;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.faq-accordian .card .card-header h6 span {
+  font-size: 1.5rem;
+}
+
+.faq-accordian .card .card-header h6.collapsed {
+  color: #000;
+}
+
+.faq-accordian .card .card-header h6.collapsed span {
+  transform: rotate(-180deg);
+}
+
+.faq-accordian .card .card-body {
+  padding: 1.75rem 2rem;
+  color: #000;
+}
+
+.faq-accordian .card .card-body p:last-child {
+  margin-bottom: 0;
+}
+
+@media only screen and (max-width: 575px) {
+  .support-button p {
+    font-size: 14px;
+  }
+}
+.support-button i {
+  color: #c125ff;
+  font-size: 1.25rem;
+}
+
+@media only screen and (max-width: 575px) {
+  .support-button i {
+    font-size: 1rem;
+  }
+}
+.support-button a {
+  text-transform: capitalize;
+  color: #2ecc71;
+}
+
+@media only screen and (max-width: 575px) {
+  .support-button a {
+    font-size: 13px;
+  }
+}
+footer {
+  margin-top: 10%;
+}
+
+.under-text {
+  margin-top: 4%;
+}/*# sourceMappingURL=base_theme.css.map */

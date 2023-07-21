@@ -1,0 +1,12 @@
+
+
+body {
+    background-color: #040f32;
+    color: #fff;
+    font-family: "Gt walsheim", sans-serif;
+  }
+
+#signup-button{
+  background-color: #fed136;;
+  border: 1px #fed136 solid;
+}
