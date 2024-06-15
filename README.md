@@ -8,55 +8,7 @@ Start	01.09.2022
 Last Change	X
 Status	In Progress
 
-
-Change history
-
-Nr.	Date	Version	Change	Type of change
-1				
-2				
-3				
-4				
-5				
-
- 
-Content
-1	Introduction Summary Use-Case	4
-2	General	4
-1.1	Project Scope	4
-1.2	Background of the Project	4
-1.3	Problem Definition	5
-1.4	Solution Approaches	5
-1.5	Interfaces and Frameworks	6
-2	Concept	7
-2.1	Goal of the Provider	7
-2.2	Goal of the User	7
-2.3	Stakeholders and Personas	7
-2.4	Software and Hardware Requirements of the Users	7
-3	Functional Requirements	8
-4	Non-Functional Requirements	8
-4.1	General Requirements	8
-4.2	Legal Requirements	9
-4.3	Technical Requirements	9
-5	General Conditions	9
-5.1	Timetable	9
-5.2	Technical Requirements	9
-5.3	Risk Analyses	10
-5.3.1	Dependencies to other Frameworks, Packages…	10
-5.4	Quality and Testing	10
-6	Data situation	11
-7	Definition of Done	11
-8	Attachments	11
-Functional Requirements of the Frontend	12
-9	High-Fidelity Prototype Frontend	13
-10	Use Case Diagram	15
-The user can easily upload his product and the system identifies to product. After this it creates the meta tags and saves the output, sends it back to the user and building/showing the knowledge graph to the user.	15
-11	Class Diagram	16
-12	Sequence Diagrams	16
-13	Activity Diagram	18
-14	Database Schema	18
-15	Question Catalog	19
-
- 
+	
 1	Introduction Summary Use-Case
 
 As a first step, the application should independently identify or classify products (possibly also reviews) of a webshop as products and differentiate them from other content elements with the help of an AI model. For this purpose, a web application is to be operated as an interface by the user in order to upload the content for evaluation. As a next step, the application should assign metatags to the identified products of the webshop and expand these products using meta descriptions that follow the schema.org standard. The individual content components are classified according to different types: e.g. Product, Offer and Review (https://schema.org/docs/schemas.html). These different types have clear and definable characteristics, which in turn have certain characteristic values. There are a large number of accessible datasets for the identification and classification of products or reviews. In addition, there are extensive data sets of already meta-described products according to the Schema.org standard. As a third step, an individual knowledge graph of the products of the webshop and a semantic webshop will be built by assigning metatags. The knowledge graph of the products can then also be used for analytical evaluation of the web shop operator. In addition, the search engine ranking of tagged websites increases and up-selling and cross-selling can be used in a more targeted manner. 
